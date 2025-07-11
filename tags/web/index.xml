@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Web on Bailey’s Cybersecurity Portfolio</title>
+    <link>https://0xBeejay.github.io/tags/web/</link>
+    <description>Recent content in Web on Bailey’s Cybersecurity Portfolio</description>
+    <generator>Hugo -- 0.146.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Jul 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://0xBeejay.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RootMe Writeup</title>
+      <link>https://0xBeejay.github.io/writeups/rootme/</link>
+      <pubDate>Fri, 11 Jul 2025 00:00:00 +0000</pubDate>
+      <guid>https://0xBeejay.github.io/writeups/rootme/</guid>
+      <description>&lt;h1 id=&#34;-introduction&#34;&gt;🧠 Introduction&lt;/h1&gt;
+&lt;p&gt;RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.&lt;/p&gt;
+&lt;h1 id=&#34;-reconnaissance&#34;&gt;🔍 Reconnaissance&lt;/h1&gt;
+&lt;p&gt;We start with an Nmap scan on the box&amp;rsquo;s IP :&lt;/p&gt;
+&lt;p&gt;nmap -sC -sV -Pn -p- 10.10.196.151 &amp;gt; nmap.txt&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Nmap Scan&#34; loading=&#34;lazy&#34; src=&#34;https://0xBeejay.github.io/images/Rootmenmap.png&#34;&gt;
+Port 22 - OpenSSH&lt;/p&gt;
+&lt;p&gt;Port 80 - Apache Web Server&lt;/p&gt;
+&lt;p&gt;The classic web exploit into ssh credentials combo :)&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

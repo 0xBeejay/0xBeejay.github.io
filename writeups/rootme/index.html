@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>RootMe Writeup | Bailey’s Cybersecurity Portfolio</title>
+<meta name="keywords" content="THM, CTF, Linux, Enumeration, Web, Privesc">
+<meta name="description" content="🧠 Introduction
+RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.
+🔍 Reconnaissance
+We start with an Nmap scan on the box&rsquo;s IP :
+nmap -sC -sV -Pn -p- 10.10.196.151 &gt; nmap.txt
+
+Port 22 - OpenSSH
+Port 80 - Apache Web Server
+The classic web exploit into ssh credentials combo :)">
+<meta name="author" content="Bailey Bradshaw">
+<link rel="canonical" href="https://0xBeejay.github.io/writeups/rootme/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://0xBeejay.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://0xBeejay.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://0xBeejay.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://0xBeejay.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://0xBeejay.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://0xBeejay.github.io/writeups/rootme/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://0xBeejay.github.io/writeups/rootme/">
+  <meta property="og:site_name" content="Bailey’s Cybersecurity Portfolio">
+  <meta property="og:title" content="RootMe Writeup">
+  <meta property="og:description" content="🧠 Introduction RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.
+🔍 Reconnaissance We start with an Nmap scan on the box’s IP :
+nmap -sC -sV -Pn -p- 10.10.196.151 &gt; nmap.txt
+Port 22 - OpenSSH
+Port 80 - Apache Web Server
+The classic web exploit into ssh credentials combo :)">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writeups">
+    <meta property="article:published_time" content="2025-07-11T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-07-11T00:00:00+00:00">
+    <meta property="article:tag" content="THM">
+    <meta property="article:tag" content="CTF">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Enumeration">
+    <meta property="article:tag" content="Web">
+    <meta property="article:tag" content="Privesc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RootMe Writeup">
+<meta name="twitter:description" content="🧠 Introduction
+RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.
+🔍 Reconnaissance
+We start with an Nmap scan on the box&rsquo;s IP :
+nmap -sC -sV -Pn -p- 10.10.196.151 &gt; nmap.txt
+
+Port 22 - OpenSSH
+Port 80 - Apache Web Server
+The classic web exploit into ssh credentials combo :)">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Writeups",
+      "item": "https://0xBeejay.github.io/writeups/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "RootMe Writeup",
+      "item": "https://0xBeejay.github.io/writeups/rootme/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RootMe Writeup",
+  "name": "RootMe Writeup",
+  "description": "🧠 Introduction RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.\n🔍 Reconnaissance We start with an Nmap scan on the box\u0026rsquo;s IP :\nnmap -sC -sV -Pn -p- 10.10.196.151 \u0026gt; nmap.txt\nPort 22 - OpenSSH\nPort 80 - Apache Web Server\nThe classic web exploit into ssh credentials combo :)\n",
+  "keywords": [
+    "THM", "CTF", "Linux", "Enumeration", "Web", "Privesc"
+  ],
+  "articleBody": "🧠 Introduction RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.\n🔍 Reconnaissance We start with an Nmap scan on the box’s IP :\nnmap -sC -sV -Pn -p- 10.10.196.151 \u003e nmap.txt\nPort 22 - OpenSSH\nPort 80 - Apache Web Server\nThe classic web exploit into ssh credentials combo :)\nLets also run a gobuster on that Apache website whilst we check out that website :\ngobuster dir -u 10.10.196.151 -w /usr/share/wordlists/dirb/common.txt \u003e gobuster.txt\n🔍 Apache Web Server With no information, nothing interactable on the page itself and nothing in the page source… Lets try those directories :\n/Panel - Just like i thought, a directory where we have authenitcation to upload any files? Lets grab a PHP reverse shell and see if we can upload it.\nhttps://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php - You can grab your own here - make sure you change the ip and port to your own.\nokay it seems PHP is not permitted. Before we try a different rev shell lets try changing the extension name. usually i try renaming the shell to .phtml or .php5\nmv revshell.php revshell.php5 nice. .php5 extension worked and we can now check /uploads to see if we can open our file and get a connection back.\nbut first.. lets listen through netcat with the port set on the rev shell.\nhere we can see our rev shell we uploaded. lets try to open it through uploads and see if we get a connection back.\nnice, we got a connection. lets give ourselves a more interactive shell. to upgrade our shell use python3 -c ‘import pty; pty.spawn(\"/bin/bash\")’\nlets look in our users www files and see if we can grab the user flag.\nlisting files within the www directories… we find the user flag!\nnow… lets try to escalate our privileges and become root.\nPrivilege Escalation First… To make things easier im going to host a python server on my ip in the same directory where i have linpeas…\nlets grab linpeas on the victim machine from our server. (linpeas is a script used for automating the process of searching for potential priv esc vulnerabilities, this will make our lives much easier.\nits important you give linpeas.sh the permissions to run - chmod +x linpeas.sh.\nlook through linpeas and see what you find. this is an easy style box from TryHackMe, so my first piece of advice would be to look through your linpeas output and look for any red+orange highlighted output.\nHere linpeas has found an interesting file with SUID permissions owned by root - python. Lets see if we can use this to gain a shell as root.\nLets check GTFObins and see if we can use this binary for priv esc.\nvery nice. Our privilege escalation was successful and we now have a root shell.\nLets grab our root shell and thats RootMe completed.\n",
+  "wordCount" : "493",
+  "inLanguage": "en",
+  "datePublished": "2025-07-11T00:00:00Z",
+  "dateModified": "2025-07-11T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Bailey Bradshaw"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://0xBeejay.github.io/writeups/rootme/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Bailey’s Cybersecurity Portfolio",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://0xBeejay.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://0xBeejay.github.io/" accesskey="h" title="Bailey’s Cybersecurity Portfolio (Alt + H)">Bailey’s Cybersecurity Portfolio</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://0xBeejay.github.io/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://0xBeejay.github.io/paths/" title="Paths">
+                    <span>Paths</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://0xBeejay.github.io/writeups/" title="Writeups">
+                    <span>Writeups</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://0xBeejay.github.io/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://0xBeejay.github.io/certificates/" title="Certificates">
+                    <span>Certificates</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      RootMe Writeup
+    </h1>
+    <div class="post-meta"><span title='2025-07-11 00:00:00 +0000 UTC'>July 11, 2025</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Bailey Bradshaw
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-introduction">🧠 Introduction<a hidden class="anchor" aria-hidden="true" href="#-introduction">#</a></h1>
+<p>RootMe is a TryHackMe boot-to-root box focused on web exploitation and Linux privilege escalation. It’s great for beginners learning the importance of enumeration and simple web-based attack vectors.</p>
+<h1 id="-reconnaissance">🔍 Reconnaissance<a hidden class="anchor" aria-hidden="true" href="#-reconnaissance">#</a></h1>
+<p>We start with an Nmap scan on the box&rsquo;s IP :</p>
+<p>nmap -sC -sV -Pn -p- 10.10.196.151 &gt; nmap.txt</p>
+<p><img alt="Nmap Scan" loading="lazy" src="/images/Rootmenmap.png">
+Port 22 - OpenSSH</p>
+<p>Port 80 - Apache Web Server</p>
+<p>The classic web exploit into ssh credentials combo :)</p>
+<p>Lets also run a gobuster on that Apache website whilst we check out that website :</p>
+<p>gobuster dir -u 10.10.196.151 -w /usr/share/wordlists/dirb/common.txt &gt; gobuster.txt</p>
+<p><img alt="Gobuster" loading="lazy" src="/images/gobusterROOTME.png"></p>
+<h1 id="-apache-web-server">🔍 Apache Web Server<a hidden class="anchor" aria-hidden="true" href="#-apache-web-server">#</a></h1>
+<p><img alt="Website" loading="lazy" src="/images/rootmewebsitepage.png"></p>
+<p>With no information, nothing interactable on the page itself and nothing in the page source&hellip; Lets try those directories :</p>
+<p><img alt="panel" loading="lazy" src="/images/panelrootme.png"></p>
+<p>/Panel - Just like i thought, a directory where we have authenitcation to upload any files? Lets grab a PHP reverse shell and see if we can upload it.</p>
+<p><a href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php">https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php</a> - You can grab your own here - make sure you change the ip and port to your own.</p>
+<p><img alt="panel1" loading="lazy" src="/images/rootmepanel1.png"></p>
+<p>okay it seems PHP is not permitted. Before we try a different rev shell lets try changing the extension name. usually i try renaming the shell to .phtml or .php5</p>
+<ul>
+<li>mv revshell.php revshell.php5</li>
+</ul>
+<p><img alt="success" loading="lazy" src="/images/successrootme.png"></p>
+<p>nice. .php5 extension worked and we can now check /uploads to see if we can open our file and get a connection back.</p>
+<p>but first.. lets listen through netcat with the port set on the rev shell.</p>
+<p><img alt="netcat" loading="lazy" src="/images/netcatrootme.png"></p>
+<p><img alt="uploads" loading="lazy" src="/images/uploads.png"></p>
+<p>here we can see our rev shell we uploaded. lets try to open it through uploads and see if we get a connection back.</p>
+<p><img alt="connection" loading="lazy" src="/images/connectionrootme.png"></p>
+<p>nice, we got a connection. lets give ourselves a more interactive shell. to upgrade our shell use python3 -c &lsquo;import pty; pty.spawn(&quot;/bin/bash&quot;)&rsquo;</p>
+<p>lets look in our users www files and see if we can grab the user flag.</p>
+<p><img alt="userflag" loading="lazy" src="/images/usertxtrootme.png"></p>
+<p>listing files within the www directories&hellip; we find the user flag!</p>
+<p>now&hellip; lets try to escalate our privileges and become root.</p>
+<h1 id="privilege-escalation">Privilege Escalation<a hidden class="anchor" aria-hidden="true" href="#privilege-escalation">#</a></h1>
+<p>First&hellip; To make things easier im going to host a python server on my ip in the same directory where i have linpeas&hellip;</p>
+<p>lets grab linpeas on the victim machine from our server. (linpeas is a script used for automating the process of searching for potential priv esc vulnerabilities, this will make our lives much easier.</p>
+<p><img alt="server" loading="lazy" src="/images/pythonserverrootme.png"></p>
+<p><img alt="server1" loading="lazy" src="linpeasrunrootme.png"></p>
+<p>its important you give linpeas.sh the permissions to run - chmod +x linpeas.sh.</p>
+<p>look through linpeas and see what you find. this is an easy style box from TryHackMe, so my first piece of advice would be to look through your linpeas output and look for any red+orange highlighted output.</p>
+<p><img alt="python" loading="lazy" src="/images/pythonrootme.png"></p>
+<p>Here linpeas has found an interesting file with SUID permissions owned by root - python. Lets see if we can use this to gain a shell as root.</p>
+<p>Lets check GTFObins and see if we can use this binary for priv esc.</p>
+<p><img alt="gtfo" loading="lazy" src="/images/gtfobinsrootme.png"></p>
+<p><img alt="rootsolution" loading="lazy" src="/images/rootthing.png"></p>
+<p><img alt="root1" loading="lazy" src="/images/gotrootrootme.png"></p>
+<p>very nice. Our privilege escalation was successful and we now have a root shell.</p>
+<p>Lets grab our root shell and thats RootMe completed.</p>
+<p><img alt="rootflag" loading="lazy" src="/images/root1rootme.png"></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://0xBeejay.github.io/tags/thm/">THM</a></li>
+      <li><a href="https://0xBeejay.github.io/tags/ctf/">CTF</a></li>
+      <li><a href="https://0xBeejay.github.io/tags/linux/">Linux</a></li>
+      <li><a href="https://0xBeejay.github.io/tags/enumeration/">Enumeration</a></li>
+      <li><a href="https://0xBeejay.github.io/tags/web/">Web</a></li>
+      <li><a href="https://0xBeejay.github.io/tags/privesc/">Privesc</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://0xBeejay.github.io/">Bailey’s Cybersecurity Portfolio</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
