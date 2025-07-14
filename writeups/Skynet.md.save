@@ -1,0 +1,13 @@
+--
+title: "TryHackMe Skynet Writeup"
+date: 2025-07-13
+tags: ["THM", "CTF", "Linux", "Enumeration", "Web", "Privesc"]
+type: "writeups"
+---
+# 🧠 Introduction
+
+Skynet is a vulnerable Terminator themed Linux machine from the website TryHackMe.com
+
+
+# 🔍 Reconnaissance
+
