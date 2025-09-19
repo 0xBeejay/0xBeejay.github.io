@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Active Directory on Bailey's Blog</title><link>https://localhost:1313/tags/active-directory/</link><description>Recent content in Active Directory on Bailey's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>nuno@n9o.xyz (BeejaySec)</managingEditor><webMaster>nuno@n9o.xyz (BeejaySec)</webMaster><copyright>© 2025 BeejaySec</copyright><lastBuildDate>Fri, 19 Sep 2025 14:53:56 +0000</lastBuildDate><atom:link href="https://localhost:1313/tags/active-directory/index.xml" rel="self" type="application/rss+xml"/><item><title>Htb-fluffy</title><link>https://localhost:1313/writeups/htb-fluffy/</link><pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate><author>nuno@n9o.xyz (BeejaySec)</author><guid>https://localhost:1313/writeups/htb-fluffy/</guid><description>&lt;h2 class="relative group">Overview
+&lt;div id="overview" class="anchor">&lt;/div>
+&lt;span
+class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+&lt;a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#overview" aria-label="Anchor">#&lt;/a>
+&lt;/span>
+&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Platform&lt;/strong>: HackTheBox&lt;/li>
+&lt;li>&lt;strong>Difficulty&lt;/strong>: Easy&lt;/li>
+&lt;li>&lt;strong>OS&lt;/strong>: Windows&lt;/li>
+&lt;li>&lt;strong>Skills&lt;/strong>: Active Directory, privilege escalation&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>&lt;strong>Assumed Breach Credentials: j.fleischman / J0elTHEM4n1990!&lt;/strong>&lt;/em>&lt;/p></description></item></channel></rss>
