@@ -4,19 +4,25 @@
 
   <url>
     <loc>https://localhost:1313/tags/active-directory/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/tags/adcs/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/writeups/htb-authority/</loc>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -42,7 +48,7 @@
   </url>
   <url>
     <loc>https://localhost:1313/categories/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -67,26 +73,14 @@
     />
   </url>
   <url>
-    <loc>https://localhost:1313/tags/cve-2025-24071/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://localhost:1313/tags/hackthebox/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://localhost:1313/writeups/htb-fluffy/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/tags/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -112,18 +106,36 @@
   </url>
   <url>
     <loc>https://localhost:1313/tags/windows/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/categories/writeups/</loc>
-    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/writeups/</loc>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/tags/adcs/</loc>
+    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/tags/cve-2025-24071/</loc>
+    <lastmod>2025-09-19T14:53:56+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/writeups/htb-fluffy/</loc>
     <lastmod>2025-09-19T14:53:56+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
