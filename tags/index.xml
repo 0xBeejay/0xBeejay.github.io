@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Bailey&#39;s Blog</title>
+    <link>https://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Bailey&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>nuno@n9o.xyz (BeejaySec)</managingEditor>
+    <webMaster>nuno@n9o.xyz (BeejaySec)</webMaster>
+    <copyright>© 2025 BeejaySec</copyright>
+    <lastBuildDate>Sun, 21 Sep 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Active Directory</title>
+      <link>https://localhost:1313/tags/active-directory/</link>
+      <pubDate>Sun, 21 Sep 2025 00:00:00 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/active-directory/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>ADCS,</title>
+      <link>https://localhost:1313/tags/adcs/</link>
+      <pubDate>Sun, 21 Sep 2025 00:00:00 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/adcs/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Hackthebox</title>
+      <link>https://localhost:1313/tags/hackthebox/</link>
+      <pubDate>Sun, 21 Sep 2025 00:00:00 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/hackthebox/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Windows</title>
+      <link>https://localhost:1313/tags/windows/</link>
+      <pubDate>Sun, 21 Sep 2025 00:00:00 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/windows/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>ADCS</title>
+      <link>https://localhost:1313/tags/adcs/</link>
+      <pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/adcs/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>AV</title>
+      <link>https://localhost:1313/tags/av/</link>
+      <pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/av/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>CVE-2025-24071</title>
+      <link>https://localhost:1313/tags/cve-2025-24071/</link>
+      <pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/cve-2025-24071/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Mssql</title>
+      <link>https://localhost:1313/tags/mssql/</link>
+      <pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/mssql/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Potato</title>
+      <link>https://localhost:1313/tags/potato/</link>
+      <pubDate>Fri, 19 Sep 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/tags/potato/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>
