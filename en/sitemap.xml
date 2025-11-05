@@ -3,20 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <url>
-    <loc>https://localhost:1313/tags/active-directory/</loc>
-    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://localhost:1313/tags/adcs/</loc>
-    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://localhost:1313/</loc>
-    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2025-11-05T14:53:56+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -42,7 +30,7 @@
   </url>
   <url>
     <loc>https://localhost:1313/categories/</loc>
-    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2025-11-05T14:53:56+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -65,6 +53,36 @@
       hreflang="en"
       href="https://localhost:1313/categories/"
     />
+  </url>
+  <url>
+    <loc>https://localhost:1313/projects/prolabsreview/</loc>
+    <lastmod>2025-11-05T14:53:56+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/categories/projects/</loc>
+    <lastmod>2025-11-05T14:53:56+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/projects/</loc>
+    <lastmod>2025-11-05T14:53:56+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/tags/active-directory/</loc>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://localhost:1313/tags/adcs/</loc>
+    <lastmod>2025-09-21T00:00:00+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://localhost:1313/tags/hackthebox/</loc>
@@ -161,11 +179,6 @@
   <url>
     <loc>https://localhost:1313/writeups/vulnlab-breach/</loc>
     <lastmod>2025-09-19T14:53:56+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://localhost:1313/projects/</loc>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url>

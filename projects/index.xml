@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Bailey&#39;s Blog</title>
+    <link>https://localhost:1313/projects/</link>
+    <description>Recent content in Projects on Bailey&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>nuno@n9o.xyz (BeejaySec)</managingEditor>
+    <webMaster>nuno@n9o.xyz (BeejaySec)</webMaster>
+    <copyright>© 2025 BeejaySec</copyright>
+    <lastBuildDate>Wed, 05 Nov 2025 14:53:56 +0000</lastBuildDate><atom:link href="https://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>HackTheBox Prolabs Review</title>
+      <link>https://localhost:1313/projects/prolabsreview/</link>
+      <pubDate>Wed, 05 Nov 2025 14:53:56 +0000</pubDate>
+      <author>nuno@n9o.xyz (BeejaySec)</author>
+      <guid>https://localhost:1313/projects/prolabsreview/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;My Review of HackTheBox Prolabs 
+    &lt;div id=&#34;my-review-of-hackthebox-prolabs&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#my-review-of-hackthebox-prolabs&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h2&gt;
+
+&lt;h3 class=&#34;relative group&#34;&gt;Overview 
+    &lt;div id=&#34;overview&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#overview&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h3&gt;
+
+&lt;h4 class=&#34;relative group&#34;&gt;What are the Prolabs and why is this relevant? 
+    &lt;div id=&#34;what-are-the-prolabs-and-why-is-this-relevant&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;
+    
+    &lt;span
+        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;
+        &lt;a class=&#34;group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline&#34; href=&#34;#what-are-the-prolabs-and-why-is-this-relevant&#34; aria-label=&#34;Anchor&#34;&gt;#&lt;/a&gt;
+    &lt;/span&gt;        
+    
+&lt;/h4&gt;
+&lt;p&gt;Prolabs from HackTheBox, are instances where there are many machines and networks present where you can ultimately test your exploit, pivoting and privilege escalation knowledge and capture flags in the process. There are many prolabs, and mini prolabs that you can tackle with each prolab having a different theme and simulating realistic corporate enviroments (well most of them). In this review i will go over the prolabs i have taken and shares my thoughts on them whilst giving tips/advice on what i wouldve done if i was retaking them. Also i will be sharing the prolabs in order i wish to take in the future!&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
